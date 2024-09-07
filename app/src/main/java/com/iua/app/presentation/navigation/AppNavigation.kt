@@ -5,7 +5,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.iua.app.presentation.auth.login.LoginScreen
-import com.iua.app.presentation.auth.login.LoginViewModel
 import com.iua.app.presentation.auth.login.SplashScreen
 import com.iua.app.presentation.home.HomeScreen
 
@@ -20,7 +19,7 @@ fun AppNavigation() {
             SplashScreen(navController)
         }
         composable(AppScreens.LoginScreen.routes) {
-            LoginScreen(LoginViewModel(), navController)
+            LoginScreen( navController = navController)
         }
         composable(AppScreens.HomeScreen.routes) {
             HomeScreen()
