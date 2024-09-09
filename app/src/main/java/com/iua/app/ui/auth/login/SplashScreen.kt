@@ -12,13 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.iua.app.R
-import com.iua.app.ui.navigation.AppScreens
-import com.iua.app.ui.theme.AppTheme
+import com.iua.app.ui.AppScreens
 import kotlinx.coroutines.delay
 
 @Composable
@@ -41,7 +39,7 @@ fun Splash() {
     ) {
         Image(
             painter = painterResource(
-                id = R.drawable._8596979_9391723
+                id = R.drawable.logo
             ),
             contentDescription = "Company",
             modifier = Modifier.size(150.dp)
@@ -54,10 +52,10 @@ fun Splash() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SplashPreview() {
-    AppTheme {
-        Splash()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun SplashPreview() {
+//    AppTheme {
+//        Splash()
+//    }
+//}

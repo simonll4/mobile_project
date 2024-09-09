@@ -37,15 +37,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.iua.app.R
-import com.iua.app.ui.navigation.AppScreens
-import com.iua.app.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.iua.app.ui.AppScreens
 
 
 @Composable
@@ -102,7 +99,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavContr
 @Composable
 fun HeaderImage(modifier: Modifier) {
     Image(
-        painter = painterResource(id = R.drawable._8596979_9391723),
+        painter = painterResource(id = R.drawable.logo),
         contentDescription = "Header Image",
         modifier = modifier.size(200.dp)
     )
@@ -179,11 +176,11 @@ fun LoginButton(loginEnable: Boolean, onLoginSelected: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginPreview() {
-    AppTheme {
-        val navController = rememberNavController()
-        LoginScreen(LoginViewModel(), navController)
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun LoginPreview() {
+//    AppTheme {
+//        val navController = rememberNavController()
+//        LoginScreen(LoginViewModel(), navController)
+//    }
+//}

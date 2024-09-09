@@ -1,5 +1,6 @@
 package com.iua.app.ui.home
 
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
@@ -8,11 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.iua.app.ui.theme.AppTheme
-import java.lang.reflect.Modifier
+import com.iua.app.domain.model.EventsModel
 
 
 @Composable
@@ -23,7 +21,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     ) {
         Button(
             onClick = {
-                viewModel.onGreeting()
+                viewModel.saveEvent(EventsModel("1", "Evento 1"))
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
@@ -35,10 +33,3 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomePreview() {
-    AppTheme {
-        HomeScreen()
-    }
-}
