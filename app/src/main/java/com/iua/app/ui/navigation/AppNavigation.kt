@@ -1,12 +1,12 @@
-package com.iua.app.presentation.navigation
+package com.iua.app.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.iua.app.presentation.auth.login.LoginScreen
-import com.iua.app.presentation.auth.login.SplashScreen
-import com.iua.app.presentation.home.HomeScreen
+import com.iua.app.ui.auth.login.LoginScreen
+import com.iua.app.ui.auth.login.SplashScreen
+import com.iua.app.ui.home.HomeScreen
 
 @Composable
 fun AppNavigation() {

@@ -1,4 +1,4 @@
-package com.iua.app.presentation
+package com.iua.app.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.iua.app.presentation.navigation.AppNavigation
-import com.iua.app.presentation.theme.AppTheme
+import com.iua.app.ui.navigation.AppNavigation
+import com.iua.app.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

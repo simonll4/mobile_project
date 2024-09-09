@@ -1,4 +1,4 @@
-package com.iua.app.presentation.auth.login
+package com.iua.app.ui.auth.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.iua.app.R
-import com.iua.app.presentation.navigation.AppScreens
-import com.iua.app.presentation.theme.AppTheme
+import com.iua.app.ui.navigation.AppScreens
+import com.iua.app.ui.theme.AppTheme
 import kotlinx.coroutines.delay
 
 @Composable

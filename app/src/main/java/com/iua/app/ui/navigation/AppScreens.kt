@@ -1,4 +1,4 @@
-package com.iua.app.presentation.navigation
+package com.iua.app.ui.navigation
 
 sealed class AppScreens(val routes: String){
     object SplashScreen: AppScreens("splash_screen")

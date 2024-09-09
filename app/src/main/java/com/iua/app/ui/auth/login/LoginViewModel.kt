@@ -1,4 +1,4 @@
-package com.iua.app.presentation.auth.login
+package com.iua.app.ui.auth.login
 
 import android.util.Patterns
 import androidx.lifecycle.LiveData
