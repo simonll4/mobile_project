@@ -71,6 +71,10 @@ dependencies {
     androidTestImplementation(composeBom)
     implementation(libs.androidx.material.icons.extended)
 
+    //Retorfit
+    // implementation(libs.retrofit)
+    // implementation(libs.converter.moshi)
+
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

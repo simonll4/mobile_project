@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.iua.app.R
-import com.iua.app.ui.AppScreens
+import com.iua.app.ui.navigation.AppScreens
 import kotlinx.coroutines.delay
 
 @Composable
@@ -25,7 +25,8 @@ fun SplashScreen(navController: NavController) {
     LaunchedEffect(key1 = true) {
         delay(3000)
         navController.popBackStack() // con esto sacamos la pantalla de splash de la pila para no poder volver
-        navController.navigate(AppScreens.LoginScreen.routes)
+        //navController.navigate(AppScreens.LoginScreen.routes)
+        navController.navigate(AppScreens.RegisterScreen.routes)
     }
     Splash()
 }

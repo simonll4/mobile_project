@@ -42,12 +42,11 @@ import androidx.navigation.NavController
 import com.iua.app.R
 import kotlinx.coroutines.launch
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.iua.app.ui.AppScreens
+import com.iua.app.ui.navigation.AppScreens
 
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), navController: NavController) {
-
     Box(
         Modifier
             .fillMaxSize()
@@ -59,7 +58,6 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), navController: NavC
 
 @Composable
 fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavController) {
-
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = false)
