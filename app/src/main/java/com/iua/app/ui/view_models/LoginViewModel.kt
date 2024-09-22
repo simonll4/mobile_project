@@ -1,4 +1,4 @@
-package com.iua.app.ui.auth.login
+package com.iua.app.ui.view_models
 
 import android.util.Patterns
 import androidx.lifecycle.LiveData
@@ -36,7 +36,7 @@ class LoginViewModel @Inject constructor() : ViewModel() {
 
     private fun String.isValidPassword(): Boolean = this.length >= 6
 
-    suspend fun onLoginSelected() {
+    suspend fun onButtonSelected() {
         _isLoading.value = true
         delay(2000) // Simulate a network request
         _isLoading.value = false

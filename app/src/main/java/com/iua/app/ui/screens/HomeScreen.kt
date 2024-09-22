@@ -1,4 +1,4 @@
-package com.iua.app.ui.home
+package com.iua.app.ui.screens
 
 
 import androidx.compose.foundation.layout.Box
@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iua.app.domain.model.EventsModel
+import com.iua.app.ui.view_models.HomeViewModel
 
 
 @Composable

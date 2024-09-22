@@ -1,4 +1,4 @@
-package com.iua.app.ui.home
+package com.iua.app.ui.view_models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

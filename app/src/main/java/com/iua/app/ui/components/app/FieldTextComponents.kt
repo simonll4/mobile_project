@@ -22,16 +22,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+
+enum class FieldType {
+    TEXT,
+    PASSWORD,
+    EMAIL
+}
 
 @Composable
 fun FieldTextComponent(
     labelValue: String,
     icon: ImageVector,
     text: String,
-    fieldType: FieldType,
+    fieldType: FieldType = FieldType.TEXT,
     onTextChanged: (String) -> Unit
 ) {
+
+    var passwordVisible by remember { mutableStateOf(false) }
+    val visualTransformation = if (fieldType == FieldType.PASSWORD && !passwordVisible) {
+        PasswordVisualTransformation()
+    } else {
+        VisualTransformation.None
+    }
 
     val keyboardOptions = when (fieldType) {
         FieldType.PASSWORD -> KeyboardOptions(keyboardType = KeyboardType.Password)
@@ -47,7 +62,8 @@ fun FieldTextComponent(
             .padding(5.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(15.dp)),
-        keyboardOptions = keyboardOptions, // TODO ver como manejar esto para todos los tipos de inputs
+        keyboardOptions = keyboardOptions,
+        visualTransformation = visualTransformation,
         singleLine = true,
         maxLines = 1,
         colors = TextFieldDefaults.colors(
@@ -61,7 +77,6 @@ fun FieldTextComponent(
             )
         },  // TODO tunear este componente para que quede mas entendible
         trailingIcon = {
-            var passwordVisible by remember { mutableStateOf(false) }
             if (fieldType == FieldType.PASSWORD) {
                 val image =
                     if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
@@ -74,12 +89,6 @@ fun FieldTextComponent(
             }
         },
     )
-}
-
-enum class FieldType {
-    PASSWORD,
-    EMAIL,
-    TEXT
 }
 
 

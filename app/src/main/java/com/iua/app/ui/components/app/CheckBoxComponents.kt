@@ -5,16 +5,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CheckBoxComponent(text: String, clickableWords: List<String>, onClick: (String) -> Unit) {
+fun CheckBoxComponent(
+    text: String,
+    clickableWords: List<String>,
+    checkState: Boolean,
+    onCheckChange: (Boolean) -> Unit,
+    onClick: (String) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -22,8 +25,7 @@ fun CheckBoxComponent(text: String, clickableWords: List<String>, onClick: (Stri
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        val checkState = remember { mutableStateOf(false) }
-        Checkbox(checked = checkState.value, onCheckedChange = { checkState.value = it })
+        Checkbox(checked = checkState, onCheckedChange = onCheckChange)
 
         ClickableTextComponent(
             text = text,

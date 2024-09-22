@@ -1,4 +1,4 @@
-package com.iua.app.ui.auth.login
+package com.iua.app.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -21,12 +21,10 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController) {
-    //operacion asincrona
     LaunchedEffect(key1 = true) {
         delay(3000)
         navController.popBackStack() // con esto sacamos la pantalla de splash de la pila para no poder volver
-        //navController.navigate(AppScreens.LoginScreen.routes)
-        navController.navigate(AppScreens.RegisterScreen.routes)
+        navController.navigate(AppScreens.LoginScreen.routes)
     }
     Splash()
 }
@@ -52,11 +50,3 @@ fun Splash() {
         )
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun SplashPreview() {
-//    AppTheme {
-//        Splash()
-//    }
-//}

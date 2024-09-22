@@ -26,4 +26,6 @@
     <string name="terms_and_conditions">By continuing you accept our Privacy Policy and Terms of Use</string>
     <string name="register_button">Register</string>
     <string name="already_have_an_account">Aready have an account? Login</string>
+    <string name="login_button">Login</string>
+    <string name="dont_have_account">Don\'t have an account? Sign Up</string>
 </resources>
