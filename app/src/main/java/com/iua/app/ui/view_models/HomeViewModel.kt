@@ -14,26 +14,7 @@ class HomeViewModel @Inject constructor(
     private val getEventsUseCase: GetEventsUseCase, private val saveEventsUseCase: SaveEventsUseCase
 ) : ViewModel() {
 
-    init {
-        saveEvent(EventsModel("1", "Evento 1"))
-    }
 
-    fun saveEvent(event: EventsModel) {
-        viewModelScope.launch {
-            saveEventsUseCase(event).collect { resource ->
-                println(resource)
-            }
-        }
-    }
-
-    suspend fun getEvents() {
-        viewModelScope.launch {
-            getEventsUseCase().collect { resource ->
-                println(resource)
-            }
-
-        }
-    }
 }
 
 

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.iua.app.ui.components.app.TitleTextComponent
 
 @Composable
-fun TermsAndConditionsScren() {
+fun TermsAndConditionsScreen() {
     Surface(modifier = Modifier.fillMaxWidth()) {
         TitleTextComponent(text = "Términos y condiciones")
     }

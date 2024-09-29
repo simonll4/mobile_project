@@ -55,9 +55,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavContr
             }
         }
     } else {
-        Column(
-            modifier = modifier,
-        ) {
+        Column(modifier = modifier) {
             HeaderImage(modifier = Modifier.align(Alignment.CenterHorizontally))
             LoginForm(viewModel)
             ForgotPassword(modifier = Modifier.align(Alignment.End))
