@@ -9,18 +9,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//@HiltViewModel
-//class HomeViewModel @Inject constructor(
-//) : ViewModel() {
-//
-//}
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getEventsUseCase: GetEventsUseCase, private val saveEventsUseCase: SaveEventsUseCase
 ) : ViewModel() {
 
     init {
-
         saveEvent(EventsModel("1", "Evento 1"))
     }
 

@@ -10,6 +10,5 @@ import com.iua.app.ui.components.app.TitleTextComponent
 @Composable
 fun Header() {
     NormalTextComponent(text = stringResource(R.string.welcome_to_register))
-
     TitleTextComponent(text = stringResource(R.string.create_account))
 }

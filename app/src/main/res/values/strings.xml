@@ -16,6 +16,7 @@
 
 <resources>
     <string name="app_name">App</string>
+    <!-- Register Screen -->
     <string name="welcome_to_register">Hey there,</string>
     <string name="create_account">Create an Account</string>
     <string name="first_name">First Name</string>
@@ -25,7 +26,12 @@
     <string name="repeat_password">Repeat your Password</string>
     <string name="terms_and_conditions">By continuing you accept our Privacy Policy and Terms of Use</string>
     <string name="register_button">Register</string>
+
+    <!-- Login Screen -->
     <string name="already_have_an_account">Aready have an account? Login</string>
     <string name="login_button">Login</string>
     <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+
+
 </resources>
+

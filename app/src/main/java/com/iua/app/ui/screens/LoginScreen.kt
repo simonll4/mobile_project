@@ -50,8 +50,9 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavContr
         }
     } else if (isLoginSuccessful) {
         LaunchedEffect(Unit) {
-            navController.popBackStack() // con esto sacamos la pantalla de login de la pila para no poder volver
-            navController.navigate(AppScreens.HomeScreen.routes)
+            navController.navigate(AppScreens.HomeScreen.routes) {
+                popUpTo(0) { inclusive = true } // Esto vacía toda la pila.
+            }
         }
     } else {
         Column(
