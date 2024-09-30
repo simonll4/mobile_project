@@ -10,6 +10,7 @@ androidxRoom = "2.6.1"
 androidxTest = "1.6.1"
 androidxTestExt = "1.2.1"
 androidxTestRunner = "1.6.1"
+coilComposeVersion = "2.2.2"
 converterMoshi = "latest.version"
 coroutines = "1.8.1"
 hilt = "2.52"
@@ -19,6 +20,8 @@ ksp = "2.0.10-1.0.24"
 materialIconsExtended = "1.7.0"
 retrofit = "2.11.0"
 runtimeLivedata = "1.7.0"
+coilCompose = "1.4.0"
+
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -42,6 +45,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidxTest" }
 androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTestExt" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
+coil-compose-v222 = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converterMoshi" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
@@ -52,6 +56,8 @@ junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

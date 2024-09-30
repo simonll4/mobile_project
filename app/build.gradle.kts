@@ -65,15 +65,16 @@ android {
 
 dependencies {
 
+
+
     implementation(libs.androidx.runtime.livedata)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
     implementation(libs.androidx.material.icons.extended)
 
-    //Retorfit
-    // implementation(libs.retrofit)
-    // implementation(libs.converter.moshi)
+    // Coil for image loading
+    implementation (libs.coil.compose.v222)
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
@@ -83,9 +84,11 @@ dependencies {
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
     // Hilt and instrumented tests.
     androidTestImplementation(libs.hilt.android.testing)
     kaptAndroidTest(libs.hilt.android.compiler)
+
     // Hilt and Robolectric tests.
     testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.android.compiler)
