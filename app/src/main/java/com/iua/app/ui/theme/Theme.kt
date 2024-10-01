@@ -10,32 +10,44 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
+// Tema oscuro
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = LightBlueAccent3,  // Usar LightBlueAccent3 para botones
+    secondary = LightBlueAccent4,
+    tertiary = LightBlueAccent2,
+
+    // Definir el color de superficie/contenedor oscuro
+    surface = DarkGrey,  // Color para los contenedores oscuros
+    background = DarkGrey,  // Opcionalmente también para el fondo
+    onPrimary = White,
+    onSecondary = White,
+    onTertiary = White,
+    onBackground = White,
+    onSurface = White  // Colores para el texto sobre estos colores
 )
 
+// Tema claro
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = LightBlueAccent3,  // Usar LightBlueAccent3 para botones
+    secondary = LightBlueAccent1,
+    tertiary = LightBlueAccent2,
 
-    /* Other default colors to override
+    // Otros colores por defecto
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
+    onPrimary = Black,
+    onSecondary = Black,
+    onTertiary = Black,
     onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    onSurface = Color(0xFF1C1B1F)
 )
+
 
 @Composable
 fun MyApplicationTheme(
