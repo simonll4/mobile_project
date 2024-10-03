@@ -1,230 +1,155 @@
 package com.iua.app.ui.screens
-//
-//import androidx.compose.foundation.Image
-//import androidx.compose.foundation.background
-//import androidx.compose.foundation.border
-//import androidx.compose.foundation.layout.Arrangement
-//import androidx.compose.foundation.layout.Box
+
+import androidx.compose.foundation.background
+import androidx.compose.ui.tooling.preview.Preview
+
 //import androidx.compose.foundation.layout.Column
-//import androidx.compose.foundation.layout.Row
-//import androidx.compose.foundation.layout.Spacer
-//import androidx.compose.foundation.layout.fillMaxSize
-//import androidx.compose.foundation.layout.fillMaxWidth
-//import androidx.compose.foundation.layout.height
-//import androidx.compose.foundation.layout.offset
 //import androidx.compose.foundation.layout.padding
-//import androidx.compose.foundation.layout.size
-//import androidx.compose.foundation.layout.width
-//import androidx.compose.foundation.shape.CircleShape
-//import androidx.compose.material3.Button
+//import androidx.compose.foundation.rememberScrollState
+//import androidx.compose.foundation.verticalScroll
+//import androidx.compose.material.icons.Icons
+//import androidx.compose.material.icons.filled.MoreVert
+//import androidx.compose.material.icons.automirrored.filled.ArrowBack
+//import androidx.compose.material3.ExperimentalMaterial3Api
+//import androidx.compose.material3.Icon
+//import androidx.compose.material3.IconButton
 //import androidx.compose.material3.MaterialTheme
-//import androidx.compose.material3.OutlinedButton
+//import androidx.compose.material3.Scaffold
 //import androidx.compose.material3.Text
+//import androidx.compose.material3.TopAppBar
+//import androidx.compose.material3.TopAppBarDefaults
 //import androidx.compose.runtime.Composable
+//import androidx.compose.runtime.collectAsState
 //import androidx.compose.runtime.getValue
 //import androidx.compose.runtime.livedata.observeAsState
-//import androidx.compose.ui.Alignment
+//import androidx.compose.ui.ExperimentalComposeUiApi
 //import androidx.compose.ui.Modifier
-//import androidx.compose.ui.draw.clip
 //import androidx.compose.ui.graphics.Color
-//import androidx.compose.ui.layout.ContentScale
-//import androidx.compose.ui.text.font.FontWeight
-//import androidx.compose.ui.tooling.preview.Devices
+//import androidx.compose.ui.semantics.semantics
+//import androidx.compose.ui.semantics.testTagsAsResourceId
 //import androidx.compose.ui.tooling.preview.Preview
-//import androidx.compose.ui.unit.dp
 //import androidx.hilt.navigation.compose.hiltViewModel
-//import coil.compose.rememberAsyncImagePainter
 //import com.iua.app.mock.Profile
+//import com.iua.app.ui.components.profile.FooterContent
+//import com.iua.app.ui.components.profile.MainProfileContent
+//import com.iua.app.ui.components.profile.TopProfileLayout
 //import com.iua.app.ui.view_models.ProfileViewModel
-//
+
+//@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 //@Composable
-//fun ProfileScreen() {
-//    ProfileView()
-//}
-//
-//
-//@Composable
-//fun ProfileView(viewModel: ProfileViewModel = hiltViewModel()) {
+//fun ProfileScreen(
+//    viewModel: ProfileViewModel = hiltViewModel()
+//) {
 //    val user: Profile by viewModel.profile.observeAsState(initial = Profile(0, "", "", "", "", ""))
+//    val popularProjects by viewModel.popularProjects.collectAsState()
 //
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .padding(16.dp)
-//    ) {
-//        Box(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(120.dp)
-//                .background(MaterialTheme.colorScheme.primary)
-//        ) {
-//            Box(
-//                modifier = Modifier
-//                    .size(120.dp)
-//                    .align(Alignment.BottomCenter)
-//                    .offset(y = 60.dp)
-//                    .clip(CircleShape)
-//                    .background(Color.White)
-//                    .border(4.dp, Color.White, CircleShape)
-//            ) {
-//                Image(
-//                    painter = rememberAsyncImagePainter(model = user.avatar),
-//                    contentDescription = "Profile Picture",
-//                    contentScale = ContentScale.Crop,
-//                    modifier = Modifier.fillMaxSize(),
-//                )
-//            }
-//        }
-//        Spacer(modifier = Modifier.height(70.dp))
-//        Column(
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(16.dp)
-//        ) {
-//            Text(
-//                text = "${user.name} ${user.lastName}",
-//                style = MaterialTheme.typography.headlineLarge,
-//                fontWeight = FontWeight.Bold
+//    Scaffold(modifier = Modifier.semantics {
+//        testTagsAsResourceId = true
+//    },
+//        containerColor = Color.Transparent,
+//        contentColor = MaterialTheme.colorScheme.onBackground,
+//        topBar = {
+//            TopAppBar(
+//                title = { Text(text = "Profile") },
+//                navigationIcon = {
+//                    IconButton(onClick = { /*onGoBack*/ }) {
+//                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+//                    }
+//                },
+//                actions = {
+//                    IconButton(onClick = { }) {
+//                        Icon(Icons.Default.MoreVert, contentDescription = "More")
+//                    }
+//                },
+//                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+//                    containerColor = Color.Transparent,
+//                ),
 //            )
-//        }
-//        Spacer(modifier = Modifier.height(20.dp))
-//        Row(
+//        }) { padding ->
+//        ProfileContent(
 //            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 16.dp),
-//            horizontalArrangement = Arrangement.SpaceEvenly
+//                .verticalScroll(rememberScrollState())
+//                .padding(padding)
 //        ) {
-//            Button(
-//                onClick = { /* Follow Action */ },
-//                modifier = Modifier.weight(1f)
-//            ) {
-//                Text("Follow")
-//            }
-//            Spacer(modifier = Modifier.width(16.dp))
-//            OutlinedButton(
-//                onClick = { /* Message Action */ },
-//                modifier = Modifier.weight(1f)
-//            ) {
-//                Text("Message")
-//            }
+//            TopProfileLayout(user)
+//            //MainProfileContent(popularProjects)
+//            FooterContent()
 //        }
 //    }
 //}
 //
 //@Composable
-//@Preview(device = Devices.PHONE, showSystemUi = true)
-//fun ProfileScreenPreview() {
-//    ProfileScreen()
+//fun ProfileContent(
+//    modifier: Modifier = Modifier, content: @Composable () -> Unit
+//) {
+//    Column(modifier) {
+//        content()
+//    }
 //}
 
-import androidx.compose.foundation.BorderStroke
+
+import androidx.compose.ui.draw.clip
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Policy
-import androidx.compose.material.icons.filled.Whatsapp
-import androidx.compose.material3.ExperimentalMaterial3Api
-
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTagsAsResourceId
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iua.app.mock.Profile
-import com.iua.app.mock.ProfilePopularList
 import com.iua.app.ui.view_models.ProfileViewModel
 
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(
-    viewModel: ProfileViewModel = hiltViewModel()
-) {
+fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
     val user: Profile by viewModel.profile.observeAsState(initial = Profile(0, "", "", "", "", ""))
-    val popularProjects by viewModel.popularProjects.collectAsState()
 
-    Scaffold(modifier = Modifier.semantics {
-        testTagsAsResourceId = true
-    },
-        containerColor = Color.Transparent,
-        contentColor = MaterialTheme.colorScheme.onBackground,
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Profile") },
-                navigationIcon = {
-                    IconButton(onClick = { /*onGoBack*/ }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "More")
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color.Transparent,
-                ),
-            )
-        }) { padding ->
-        ProfileContent(
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Black)
+            .padding(16.dp)
+    ) {
+        Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(padding)
+                .fillMaxWidth()
+                .align(Alignment.TopCenter)
         ) {
             TopProfileLayout(user)
-            MainProfileContent(popularProjects)
-            FooterContent()
+            Spacer(modifier = Modifier.height(16.dp))
+            UnifiedSection()
         }
-    }
-}
-
-@Composable
-fun ProfileContent(
-    modifier: Modifier = Modifier, content: @Composable () -> Unit
-) {
-    Column(modifier) {
-        content()
+        CustomButtons(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
@@ -233,239 +158,405 @@ fun TopProfileLayout(user: Profile) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp),
-        shape = RoundedCornerShape(8),
+            .height(100.dp)
+            .padding(2.dp),
+        shape = RoundedCornerShape(16.dp),
+        color = Color(0xFF1C1C1C)
     ) {
-        Column(modifier = Modifier.padding(10.dp)) {
-            Row(
-                modifier = Modifier.padding(vertical = 5.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    imageVector = Icons.Default.AccountCircle,
+                    imageVector = Icons.Default.AccountCircle, // Puedes usar Coil para una imagen real.
                     contentDescription = null,
                     modifier = Modifier
-                        .clip(CircleShape)
-                        .size(60.dp)
+                        .size(50.dp)
+                        .clip(CircleShape),
+                    tint = Color.Green
                 )
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp)
-                        .weight(1f)
-                ) {
-                    Text(
-                        text = "Matias", style = MaterialTheme.typography.titleLarge
-                    )
-
-                    Text(
-                        text = "@Matwey",
-                        style = MaterialTheme.typography.labelMedium,
-                        overflow = TextOverflow.Ellipsis,
-                    )
+                Column(modifier = Modifier.padding(start = 12.dp)) {
+                    Text(text = user.name, style = MaterialTheme.typography.titleLarge.copy(color = Color.White))
+                    Text(text = "https://ar.lemon.me/${user.name}", style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray))
                 }
             }
-            Text(
-                modifier = Modifier.padding(vertical = 5.dp),
-                text = "Hola que tal soy Matias, me gusta hacer aplicaciones front y elegir la paleta de colores, ademas de hacer un buen diseño",
-                style = MaterialTheme.typography.bodySmall,
+            Icon(
+                imageVector = Icons.Default.ArrowForward,
+                contentDescription = null,
+                tint = Color.Green,
+                modifier = Modifier.size(24.dp)
             )
+        }
+    }
+}
+
+@Composable
+fun UnifiedSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = Color(0xFF1C1C1E))
+            .padding(16.dp)
+    ) {
+        Text(
+            text = "Mi cuenta y Configuración", // Combine the sections' name
+            color = Color.White,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            shape = RoundedCornerShape(16.dp), // Rounded edges for the card
+            colors = CardDefaults.cardColors( // Set the background color for the card
+                containerColor = Color(0xFF333333)
+            ),
+            elevation = CardDefaults.cardElevation(4.dp) // Set elevation
+        ) {
             Column {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    ImageTextContent(icon = {
-                        Icon(
-                            imageVector = Icons.Default.LocationOn,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }, text = {
-                        Text(
-                            text = "Cordoba, Argentina",
-                            style = MaterialTheme.typography.labelLarge,
-                        )
-                    })
-                    Spacer(modifier = Modifier.width(8.dp)) // Add spacing between items
-                    ImageTextContent(icon = {
-                        Icon(
-                            imageVector = Icons.Default.Email,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }, text = {
-                        Text(
-                            text = "Matifront@gmail.com",
-                            style = MaterialTheme.typography.labelLarge,
-                        )
-                    })
-                }
+                // First item: "Datos personales"
+                ProfileItem(
+                    icon = Icons.Default.Person,
+                    title = "Datos personales",
+                    description = "Nombre, mail y DNI."
+                )
+                Divider(color = Color(0xFF444444), thickness = 1.dp) // Divider between items
+
+                // Second item: "Personalización"
+                ProfileItem(
+                    icon = Icons.Default.Settings,
+                    title = "Personalización",
+                    description = "Notificaciones, modo oscuro, etc."
+                )
             }
         }
     }
 }
 
 @Composable
-fun MainProfileContent(popularProjects: List<ProfilePopularList>) {
-    Surface(
+fun ProfileItem(icon: ImageVector, title: String, description: String) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp),
-        shape = RoundedCornerShape(8),
-    ) {
-        Column(modifier = Modifier.padding(5.dp)) {
-            Text(
-                modifier = Modifier.padding(10.dp),
-                text = "Popular",
-                style = MaterialTheme.typography.titleMedium,
-            )
-            PopularContentList(popularProjects)
-            HorizontalDivider(modifier = Modifier.padding(vertical = 15.dp))
-        }
-    }
-}
-
-@Composable
-fun FooterContent() {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp),
-        shape = RoundedCornerShape(8),
-    ) {
-        Column(modifier = Modifier.padding(5.dp)) {
-            Text(
-                modifier = Modifier.padding(10.dp),
-                text = "Más opciones",
-                style = MaterialTheme.typography.titleMedium,
-            )
-            MoreOptionsComp("Edit Profile", Icons.Default.Edit)
-            MoreOptionsComp("Privacy Policy", Icons.Default.Policy)
-            MoreOptionsComp("About", Icons.Default.Info)
-        }
-    }
-}
-
-@Composable
-fun ImageTextContent(
-    icon: @Composable () -> Unit, text: @Composable () -> Unit, modifier: Modifier = Modifier
-) {
-    Row(
-        modifier,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        icon()
-        Spacer(modifier = Modifier.width(5.dp))
-        text()
-        Spacer(modifier = Modifier.width(10.dp))
-    }
-}
-
-@Composable
-fun PopularContentList(popularProjects: List<ProfilePopularList>) {
-    LazyRow {
-        items(items = popularProjects, itemContent = {
-            Surface(
-                modifier = Modifier
-                    .width(250.dp)
-                    .padding(5.dp),
-                shape = RoundedCornerShape(8),
-                border = BorderStroke(0.1.dp, MaterialTheme.colorScheme.outline)
-            ) {
-                Column(modifier = Modifier.padding(5.dp)) {
-                    Row(
-                        modifier = Modifier.padding(vertical = 5.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Whatsapp,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .size(20.dp)
-                        )
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Text(
-                            text = it.name,
-                            style = MaterialTheme.typography.titleSmall,
-                        )
-                    }
-
-                    Text(
-                        modifier = Modifier.padding(vertical = 5.dp),
-                        text = it.description,
-                        style = MaterialTheme.typography.bodySmall, maxLines = 2,
-                    )
-
-                    Row(
-                        modifier = Modifier.padding(vertical = 5.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        ImageTextContent(modifier = Modifier.padding(vertical = 5.dp), icon = {
-                            Icon(
-                                imageVector = Icons.Default.Star,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .clip(CircleShape)
-                                    .size(15.dp)
-                            )
-                        }, text = {
-                            Text(
-                                text = it.star,
-                                style = MaterialTheme.typography.labelLarge,
-                            )
-                        })
-                        Spacer(modifier = Modifier.width(5.dp))
-                        ImageTextContent(modifier = Modifier.padding(vertical = 5.dp), icon = {
-                            Icon(
-                                imageVector = Icons.Default.Whatsapp,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .clip(CircleShape)
-                                    .size(10.dp)
-                            )
-                        }, text = {
-                            Text(
-                                text = it.language,
-                                style = MaterialTheme.typography.labelLarge,
-                            )
-                        })
-                    }
-                }
-            }
-        })
-    }
-}
-
-@Composable
-fun MoreOptionsComp(name: String, icon: ImageVector) {
-    Row(
-        modifier = Modifier.padding(5.dp),
-        verticalAlignment = Alignment.CenterVertically,
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,
             contentDescription = null,
-            modifier = Modifier
-                .size(40.dp)
-                .padding(6.dp)
+            tint = Color.White,
+            modifier = Modifier.size(24.dp)
         )
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 4.dp)
-                .weight(1f)
-        ) {
-            Text(
-                text = name, style = MaterialTheme.typography.labelLarge
-            )
+        Spacer(modifier = Modifier.width(16.dp))
+        Column {
+            Text(text = title, color = Color.White, fontWeight = FontWeight.Bold)
+            Text(text = description, color = Color.Gray, fontSize = 12.sp)
         }
+        Spacer(modifier = Modifier.weight(1f))
         Icon(
-            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            imageVector = Icons.Default.ArrowForwardIos,
             contentDescription = null,
-            modifier = Modifier.padding(4.dp)
+            tint = Color.Gray,
+            modifier = Modifier.size(16.dp)
         )
     }
 }
+
+@Composable
+fun CustomButtons(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(Color(0xFF1C1C1E))
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // "Necesito ayuda" Button
+        Button(
+            onClick = { /* Handle "Necesito ayuda" click */ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF333333), // Dark background
+                contentColor = Color.White // White text/icon
+            ),
+            shape = RoundedCornerShape(50) // Rounded corners
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Headset, // Headset icon
+                    contentDescription = "Help icon",
+                    tint = Color.White
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = "Necesito ayuda", color = Color.White)
+            }
+        }
+
+        // "Cerrar sesión" Button
+        TextButton(
+            onClick = { /* Handle "Cerrar sesión" click */ },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = "Cerrar sesión",
+                color = Color(0xFF00FF00), // Green text
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+
+//@Composable
+//fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
+//    val user: Profile by viewModel.profile.observeAsState(initial = Profile(0, "", "", "", "", ""))
+//
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(color = Color.Black)
+//    ) {
+//        Column(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(16.dp)
+//        ) {
+//            TopProfileLayout(user)
+//            Spacer(modifier = Modifier.height(16.dp))
+//            UnifiedSection()
+//        }
+//        CustomButtons()
+//    }
+//}
+//
+//@Composable
+//fun TopProfileLayout(user: Profile) {
+//    Surface(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .height(100.dp)
+//            .padding(2.dp),
+//        shape = RoundedCornerShape(16.dp),
+//        color = Color(0xFF1C1C1C)
+//    ) {
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(12.dp),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Icon(
+//                    imageVector = Icons.Default.AccountCircle, // Puedes usar Coil para una imagen real.
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .size(50.dp)
+//                        .clip(CircleShape),
+//                    tint = Color.Green
+//                )
+//                Column(modifier = Modifier.padding(start = 12.dp)) {
+//                    Text(text = user.name, style = MaterialTheme.typography.titleLarge.copy(color = Color.White))
+//                    Text(text = "https://ar.lemon.me/${user.name}", style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray))
+//                }
+//            }
+//            Icon(
+//                imageVector = Icons.Default.ArrowForward,
+//                contentDescription = null,
+//                tint = Color.Green,
+//                modifier = Modifier.size(24.dp)
+//            )
+//        }
+//    }
+//}
+//
+//@Composable
+//fun UnifiedSection() {
+//    Column(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .background(color = Color(0xFF1C1C1E))
+//            .padding(16.dp)
+//    ) {
+//        Text(
+//            text = "Mi cuenta y Configuración", // Combine the sections' name
+//            color = Color.White,
+//            fontSize = 18.sp,
+//            fontWeight = FontWeight.Bold,
+//            modifier = Modifier.padding(bottom = 8.dp)
+//        )
+//
+//        Card(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(8.dp),
+//            shape = RoundedCornerShape(16.dp), // Rounded edges for the card
+//            colors = CardDefaults.cardColors( // Set the background color for the card
+//                containerColor = Color(0xFF333333)
+//            ),
+//            elevation = CardDefaults.cardElevation(4.dp) // Set elevation
+//        ) {
+//            Column {
+//                // First item: "Datos personales"
+//                ProfileItem(
+//                    icon = Icons.Default.Person,
+//                    title = "Datos personales",
+//                    description = "Nombre, mail y DNI."
+//                )
+//                Divider(color = Color(0xFF444444), thickness = 1.dp) // Divider between items
+//
+//                // Second item: "Personalización"
+//                ProfileItem(
+//                    icon = Icons.Default.Settings,
+//                    title = "Personalización",
+//                    description = "Notificaciones, modo oscuro, etc."
+//                )
+//            }
+//        }
+//    }
+//}
+//
+//@Composable
+//fun ProfileItem(icon: ImageVector, title: String, description: String) {
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(16.dp),
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        Icon(
+//            imageVector = icon,
+//            contentDescription = null,
+//            tint = Color.White,
+//            modifier = Modifier.size(24.dp)
+//        )
+//        Spacer(modifier = Modifier.width(16.dp))
+//        Column {
+//            Text(text = title, color = Color.White, fontWeight = FontWeight.Bold)
+//            Text(text = description, color = Color.Gray, fontSize = 12.sp)
+//        }
+//        Spacer(modifier = Modifier.weight(1f))
+//        Icon(
+//            imageVector = Icons.Default.ArrowForwardIos,
+//            contentDescription = null,
+//            tint = Color.Gray,
+//            modifier = Modifier.size(16.dp)
+//        )
+//    }
+//}
+//
+//@Composable
+//fun CustomButtons() {
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(Color(0xFF1C1C1E))
+//    ) {
+//        Column(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .align(Alignment.BottomCenter)
+//                .padding(16.dp),
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            // "Necesito ayuda" Button
+//            Button(
+//                onClick = { /* Handle "Necesito ayuda" click */ },
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(bottom = 16.dp),
+//                colors = ButtonDefaults.buttonColors(
+//                    containerColor = Color(0xFF333333), // Dark background
+//                    contentColor = Color.White // White text/icon
+//                ),
+//                shape = RoundedCornerShape(50) // Rounded corners
+//            ) {
+//                Row(
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Default.Headset, // Headset icon
+//                        contentDescription = "Help icon",
+//                        tint = Color.White
+//                    )
+//                    Spacer(modifier = Modifier.width(8.dp))
+//                    Text(text = "Necesito ayuda", color = Color.White)
+//                }
+//            }
+//
+//            // "Cerrar sesión" Button
+//            TextButton(
+//                onClick = { /* Handle "Cerrar sesión" click */ },
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Text(
+//                    text = "Cerrar sesión",
+//                    color = Color(0xFF00FF00), // Green text
+//                    fontWeight = FontWeight.Bold
+//                )
+//            }
+//        }
+//    }
+//}
+
+//@Composable
+//fun ProfileItem(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, description: String) {
+//    Surface(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(vertical = 4.dp),
+//        shape = RoundedCornerShape(8.dp),
+//        color = Color(0xFF1C1C1E)
+//    ) {
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(12.dp),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Icon(
+//                    imageVector = icon,
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .size(24.dp)
+//                        .padding(end = 8.dp),
+//                    tint = Color.Gray
+//                )
+//                Column {
+//                    Text(text = title, style = MaterialTheme.typography.bodyLarge.copy(color = Color.White))
+//                    if (description.isNotEmpty()) {
+//                        Text(
+//                            text = description,
+//                            style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray),
+//                            maxLines = 1
+//                        )
+//                    }
+//                }
+//            }
+//            Icon(
+//                imageVector = Icons.Default.ArrowForward,
+//                contentDescription = null,
+//                tint = Color.Gray,
+//                modifier = Modifier.size(24.dp)
+//            )
+//        }
+//    }
+//}
+
+
 
 @Composable
 @Preview(showBackground = true)

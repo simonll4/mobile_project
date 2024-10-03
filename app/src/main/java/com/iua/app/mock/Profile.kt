@@ -11,12 +11,6 @@ data class Profile(
     val avatar: String
 )
 
-data class FeatureList(
-    val name: String,
-    val listIcon: ImageVector,
-    val githubUrl: String,
-)
-
 data class ProfilePopularList(
     val name: String,
     val description: String,
@@ -24,7 +18,4 @@ data class ProfilePopularList(
     val language: String
 )
 
-data class ImageTextList(
-    val icon: ImageVector,
-    val text: String
-)
+
