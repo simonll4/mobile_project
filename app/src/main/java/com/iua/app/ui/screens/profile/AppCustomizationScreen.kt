@@ -1,4 +1,4 @@
-package com.iua.app.ui.screens
+package com.iua.app.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

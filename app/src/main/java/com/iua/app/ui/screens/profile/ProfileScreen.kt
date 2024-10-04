@@ -1,4 +1,4 @@
-package com.iua.app.ui.screens
+package com.iua.app.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,13 +39,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.iua.app.mock.Profile
 import com.iua.app.ui.components.profile.TopAppBarComponent
-import com.iua.app.ui.navigation.AppNavigation
 import com.iua.app.ui.navigation.AppScreens
 import com.iua.app.ui.view_models.ProfileViewModel
 
@@ -54,7 +55,7 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
-    val user: Profile by viewModel.profile.observeAsState(initial = Profile(0, "", "", "", "", ""))
+    val user: Profile by viewModel.profile.observeAsState(initial = Profile(0, "", "", "", "", "", ""))
 
     Scaffold(
         modifier = Modifier
@@ -248,8 +249,11 @@ fun ButtonSection(modifier: Modifier = Modifier) {
     }
 }
 
-//@Composable
-//@Preview(showBackground = true)
-//fun ProfileScreenPreview() {
-//    ProfileScreen(navController = navController)
-//}
+@Preview(showBackground = true)
+@Composable
+fun ProfileScreenPreview() {
+    ProfileScreen(
+        viewModel = ProfileViewModel(),
+        navController = rememberNavController()
+    )
+}

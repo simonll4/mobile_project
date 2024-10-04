@@ -1,13 +1,12 @@
 package com.iua.app.mock
 
-import androidx.compose.ui.graphics.vector.ImageVector
-
 data class Profile(
     val id: Int,
     val name: String,
     val lastName: String,
     val email: String,
     val phone: String,
+    val dni : String,
     val avatar: String
 )
 
