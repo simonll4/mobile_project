@@ -1,7 +1,7 @@
 package com.iua.app.ui.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,17 +24,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -46,13 +42,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.iua.app.mock.Profile
+import com.iua.app.ui.components.profile.TopAppBarComponent
+import com.iua.app.ui.navigation.AppNavigation
+import com.iua.app.ui.navigation.AppScreens
 import com.iua.app.ui.view_models.ProfileViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel = hiltViewModel()
+    viewModel: ProfileViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
     val user: Profile by viewModel.profile.observeAsState(initial = Profile(0, "", "", "", "", ""))
 
@@ -61,20 +61,10 @@ fun ProfileScreen(
             .fillMaxSize()
             .background(Color.Black),
         topBar = {
-            TopAppBar(
-                title = { Text(text = "Perfil", color = Color.White) },
-                navigationIcon = {
-                    IconButton(onClick = { /* Acción de volver atrás */ }) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Atrás",
-                            tint = Color.White
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color.Transparent
-                )
+            TopAppBarComponent(
+                navController,
+                "Perfil",
+                Icons.AutoMirrored.Filled.ArrowBack
             )
         }
     ) { paddingValues ->
@@ -92,7 +82,7 @@ fun ProfileScreen(
             ) {
                 TopProfileLayout(user)
                 Spacer(modifier = Modifier.height(16.dp))
-                MainSection()
+                MainSection(navController)
             }
             ButtonSection(modifier = Modifier.align(Alignment.BottomCenter))
         }
@@ -137,7 +127,7 @@ fun TopProfileLayout(user: Profile) {
 }
 
 @Composable
-fun MainSection() {
+fun MainSection(navController: NavHostController) {
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -168,13 +158,15 @@ fun MainSection() {
                     ProfileItem(
                         icon = Icons.Default.Person,
                         title = "Datos personales",
-                        description = "Nombre, mail y DNI."
+                        description = "Nombre, mail y DNI.",
+                        onClick = { navController.navigate(AppScreens.PersonalDataScreen.routes) }
                     )
                     HorizontalDivider(thickness = 1.dp, color = Color(0xFF444444))
                     ProfileItem(
                         icon = Icons.Default.Settings,
                         title = "Personalización",
-                        description = "Notificaciones, modo oscuro, etc."
+                        description = "Notificaciones, modo oscuro, etc.",
+                        onClick = { navController.navigate(AppScreens.AppCustomizationScreen.routes) }
                     )
                 }
             }
@@ -183,11 +175,12 @@ fun MainSection() {
 }
 
 @Composable
-fun ProfileItem(icon: ImageVector, title: String, description: String) {
+fun ProfileItem(icon: ImageVector, title: String, description: String, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -255,8 +248,8 @@ fun ButtonSection(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-@Preview(showBackground = true)
-fun ProfileScreenPreview() {
-    ProfileScreen()
-}
+//@Composable
+//@Preview(showBackground = true)
+//fun ProfileScreenPreview() {
+//    ProfileScreen(navController = navController)
+//}

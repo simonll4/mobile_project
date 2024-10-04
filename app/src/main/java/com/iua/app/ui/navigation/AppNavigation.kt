@@ -29,7 +29,16 @@ fun AppNavigation() {
             TermsAndConditionsScreen()
         }
         composable(AppScreens.HomeScreen.routes) {
-            HomeScreen()
+            HomeScreen(navController = navController)
+        }
+        composable(AppScreens.ProfileScreen.routes) {
+            ProfileScreen(navController = navController)
+        }
+        composable(AppScreens.PersonalDataScreen.routes) {
+            PersonalDataScreen(navController = navController)
+        }
+        composable(AppScreens.AppCustomizationScreen.routes) {
+            AppCustomizationScreen(navController = navController)
         }
     }
 }

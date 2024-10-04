@@ -17,7 +17,7 @@ import com.iua.app.ui.navigation.HomeSections
 @Composable
 fun BottomBar(homeNavController: NavHostController) {
     val screens = listOf(
-        HomeSections.Home, HomeSections.Favorites, HomeSections.Profile
+        HomeSections.Home, HomeSections.Favorites
     )
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

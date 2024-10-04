@@ -1,6 +1,5 @@
 package com.iua.app.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.iua.app.R
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -90,6 +88,6 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavContr
 @Composable
 fun PreviewLoginScreen() {
     val navController = rememberNavController()
-    val viewModel = LoginViewModel() // Asegúrate de proporcionar un ViewModel adecuado para la vista previa
+    val viewModel = LoginViewModel()
     LoginScreen(viewModel = viewModel, navController = navController)
 }

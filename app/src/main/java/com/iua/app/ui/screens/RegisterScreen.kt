@@ -78,7 +78,7 @@ fun Register(modifier: Modifier, viewModel: RegisterViewModel, navController: Na
 @Composable
 fun PreviewRegisterScreen() {
     val navController = rememberNavController()
-    val viewModel = RegisterViewModel() // Asegúrate de proporcionar un ViewModel adecuado para la vista previa
+    val viewModel = RegisterViewModel()
     RegisterScreen(viewModel = viewModel, navController = navController)
 }
 
