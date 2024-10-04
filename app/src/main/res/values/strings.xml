@@ -17,7 +17,7 @@
 <resources>
     <string name="app_name">App</string>
     <!-- Register Screen -->
-    <string name="welcome_to_register">Hey there,</string>
+    <string name="welcome_to_register">Hey there,👋</string>
     <string name="create_account">Create an Account</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>

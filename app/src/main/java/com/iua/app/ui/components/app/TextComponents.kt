@@ -24,9 +24,9 @@ fun NormalTextComponent(text: String) {
     Text(
         text = text, modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 35.dp), style = TextStyle(
-            fontSize = 24.sp, fontWeight = FontWeight.Normal, fontStyle = FontStyle.Normal
-        ), color = Color(0xFF000000), // cambiar esto por un color de la paleta de colores
+            .heightIn(),
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onBackground,
         textAlign = TextAlign.Center
     )
 }
@@ -36,9 +36,10 @@ fun TitleTextComponent(text: String) {
     Text(
         text = text, modifier = Modifier
             .fillMaxWidth()
-            .heightIn(), style = TextStyle(
-            fontSize = 30.sp, fontWeight = FontWeight.Bold, fontStyle = FontStyle.Normal
-        ), color = Color(0xFF000000), textAlign = TextAlign.Center
+            .heightIn(min = 50.dp),
+        style = MaterialTheme.typography.titleLarge,
+        color = MaterialTheme.colorScheme.onBackground,
+        textAlign = TextAlign.Center
     )
 }
 
@@ -60,7 +61,7 @@ fun ClickableTextComponent(
                 withStyle(
                     style = SpanStyle(
                         color = MaterialTheme.colorScheme.primary,
-                        fontSize = 16.sp,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     )
                 ) {
                     append("$trimmedWord ")
@@ -73,8 +74,8 @@ fun ClickableTextComponent(
     }
     ClickableText(
         text = annotatedText,
-        style = MaterialTheme.typography.bodyLarge.copy( // Usa el estilo definido en typography
-            color = MaterialTheme.colorScheme.onBackground // Usa el color del tema
+        style = MaterialTheme.typography.bodyMedium.copy(
+            color = MaterialTheme.colorScheme.onBackground
         ),
         modifier = modifier, // Aquí se aplica el modificador
         onClick = { offset ->
