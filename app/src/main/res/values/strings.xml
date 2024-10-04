@@ -16,6 +16,10 @@
 
 <resources>
     <string name="app_name">App</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_title">Cultural Events</string>
+
     <!-- Register Screen -->
     <string name="welcome_to_register">Hey there,👋</string>
     <string name="create_account">Create an Account</string>
