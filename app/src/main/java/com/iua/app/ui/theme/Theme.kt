@@ -18,13 +18,14 @@ import androidx.core.view.ViewCompat
 
 // Tema oscuro
 private val DarkColorScheme = darkColorScheme(
-    primary = LightBlueAccent3,  // Usar LightBlueAccent3 para botones
-    secondary = LightBlueAccent4,
+    primary = LightBlueAccent4,  // Usar LightBlueAccent3 para botones
+    secondary = LightBlueAccent3,
     tertiary = LightBlueAccent2,
+
 
     // Definir el color de superficie/contenedor oscuro
     surface = DarkGrey,  // Color para los contenedores oscuros
-    background = DarkGrey,  // Opcionalmente también para el fondo
+    background = Black,  // Opcionalmente también para el fondo
     onPrimary = White,
     onSecondary = White,
     onTertiary = White,
@@ -44,7 +45,7 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = Black,
     onSecondary = Black,
     onTertiary = Black,
-    onBackground = Color(0xFF1C1B1F),
+    onBackground = Black,
     onSurface = Color(0xFF1C1B1F)
 )
 
@@ -53,7 +54,7 @@ private val LightColorScheme = lightColorScheme(
 fun MyApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

@@ -1,10 +1,13 @@
 package com.iua.app.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,10 +16,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.iua.app.R
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.iua.app.ui.components.app.ButtonComponent
 import com.iua.app.ui.components.login.DontHaveAccount
 import com.iua.app.ui.components.login.ForgotPassword
@@ -56,9 +62,18 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavContr
         }
     } else {
         Column(modifier = modifier) {
-            HeaderImage(modifier = Modifier.align(Alignment.CenterHorizontally))
+            Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                Column {
+                    Text(
+                        text = stringResource(R.string.cultural_events),
+                        style = MaterialTheme.typography.displaySmall,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                    HeaderImage(modifier = Modifier.align(Alignment.CenterHorizontally))
+                }
+            }
             LoginForm(viewModel)
-            ForgotPassword(modifier = Modifier.align(Alignment.End))
+            ForgotPassword(modifier = Modifier.align(Alignment.End).padding(10.dp))
             ButtonComponent(
                 text = stringResource(
                     R.string.login_button
@@ -71,3 +86,10 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavContr
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun PreviewLoginScreen() {
+    val navController = rememberNavController()
+    val viewModel = LoginViewModel() // Asegúrate de proporcionar un ViewModel adecuado para la vista previa
+    LoginScreen(viewModel = viewModel, navController = navController)
+}

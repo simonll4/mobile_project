@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,18 +29,24 @@ import androidx.lifecycle.ViewModel
 @Composable
 fun ButtonComponent(text: String, enabled: Boolean = false, onButtonSelected: () -> Unit) {
 
-    Button(
-        onClick = { onButtonSelected() },
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            disabledContentColor = MaterialTheme.colorScheme.secondary,
-        ),
-        enabled = enabled
+            .padding(vertical = 16.dp) // Ajusta el valor de padding según sea necesario
     ) {
-        Text(text = text)
+        Button(
+            onClick = { onButtonSelected() },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                disabledContentColor = MaterialTheme.colorScheme.secondary,
+            ),
+            enabled = enabled
+        ) {
+            Text(text = text, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onPrimary)
+        }
     }
 
 

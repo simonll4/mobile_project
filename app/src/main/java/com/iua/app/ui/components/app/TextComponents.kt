@@ -3,6 +3,7 @@ package com.iua.app.ui.components.app
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,9 +24,9 @@ fun NormalTextComponent(text: String) {
     Text(
         text = text, modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 35.dp), style = TextStyle(
-            fontSize = 24.sp, fontWeight = FontWeight.Normal, fontStyle = FontStyle.Normal
-        ), color = Color(0xFF000000), // cambiar esto por un color de la paleta de colores
+            .heightIn(),
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onBackground,
         textAlign = TextAlign.Center
     )
 }
@@ -35,9 +36,10 @@ fun TitleTextComponent(text: String) {
     Text(
         text = text, modifier = Modifier
             .fillMaxWidth()
-            .heightIn(), style = TextStyle(
-            fontSize = 30.sp, fontWeight = FontWeight.Bold, fontStyle = FontStyle.Normal
-        ), color = Color(0xFF000000), textAlign = TextAlign.Center
+            .heightIn(min = 50.dp),
+        style = MaterialTheme.typography.titleLarge,
+        color = MaterialTheme.colorScheme.onBackground,
+        textAlign = TextAlign.Center
     )
 }
 
@@ -58,9 +60,8 @@ fun ClickableTextComponent(
                 pushStringAnnotation(tag = "CLICKABLE", annotation = matchingClickableWord)
                 withStyle(
                     style = SpanStyle(
-                        color = Color.Blue,
-                        fontSize = 16.sp,
-                        textDecoration = TextDecoration.Underline
+                        color = MaterialTheme.colorScheme.primary,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     )
                 ) {
                     append("$trimmedWord ")
@@ -73,6 +74,9 @@ fun ClickableTextComponent(
     }
     ClickableText(
         text = annotatedText,
+        style = MaterialTheme.typography.bodyMedium.copy(
+            color = MaterialTheme.colorScheme.onBackground
+        ),
         modifier = modifier, // Aquí se aplica el modificador
         onClick = { offset ->
             annotatedText.getStringAnnotations(tag = "CLICKABLE", start = offset, end = offset)

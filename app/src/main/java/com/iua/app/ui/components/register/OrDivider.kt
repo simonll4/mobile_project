@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +20,8 @@ fun HorizontalLine(modifier: Modifier = Modifier) {
     HorizontalDivider(
         modifier = modifier
             .fillMaxWidth()
-            .height(1.dp), color = Color.Black
+            .height(1.dp),
+        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
     )
 }
 
@@ -28,21 +30,21 @@ fun OrDivider() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 20.dp),
+            .padding(vertical = 25.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(modifier = Modifier.weight(1f)) {
+        Box(modifier = Modifier.weight(1f).padding(10.dp)) {
             HorizontalLine()
         }
 
         Text(
             text = "or",
-            fontSize = 14.sp,
-            color = Color.Black,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
 
-        Box(modifier = Modifier.weight(1f)) {
+        Box(modifier = Modifier.weight(1f).padding(10.dp)) {
             HorizontalLine()
         }
     }

@@ -4,6 +4,7 @@ package com.iua.app.ui.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,9 +14,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iua.app.R
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.iua.app.ui.components.app.ButtonComponent
 import com.iua.app.ui.components.register.AlreadyHaveAccountText
 import com.iua.app.ui.components.register.Header
@@ -52,7 +56,7 @@ fun Register(modifier: Modifier, viewModel: RegisterViewModel, navController: Na
             }
         }
     } else {
-        Column(modifier = modifier) {
+        Column(modifier = modifier.padding(10.dp)) {
             Header()
             RegisterForm(viewModel, navController)
             ButtonComponent(
@@ -70,4 +74,11 @@ fun Register(modifier: Modifier, viewModel: RegisterViewModel, navController: Na
 
 }
 
+@Preview(showBackground = true)
+@Composable
+fun PreviewRegisterScreen() {
+    val navController = rememberNavController()
+    val viewModel = RegisterViewModel() // Asegúrate de proporcionar un ViewModel adecuado para la vista previa
+    RegisterScreen(viewModel = viewModel, navController = navController)
+}
 

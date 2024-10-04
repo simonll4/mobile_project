@@ -11,7 +11,7 @@ import com.iua.app.R
 @Composable
 fun HeaderImage(modifier: Modifier) {
     Image(
-        painter = painterResource(id = R.drawable.logo),
+        painter = painterResource(id = R.drawable.logo_prev),
         contentDescription = "Header Image",
         modifier = modifier.size(200.dp)
     )

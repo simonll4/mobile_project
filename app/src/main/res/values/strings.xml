@@ -16,8 +16,12 @@
 
 <resources>
     <string name="app_name">App</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_title">Cultural Events</string>
+
     <!-- Register Screen -->
-    <string name="welcome_to_register">Hey there,</string>
+    <string name="welcome_to_register">Hey there,👋</string>
     <string name="create_account">Create an Account</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -31,6 +35,7 @@
     <string name="already_have_an_account">Aready have an account? Login</string>
     <string name="login_button">Login</string>
     <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="cultural_events">Cultural Events</string>
 
 
 </resources>
