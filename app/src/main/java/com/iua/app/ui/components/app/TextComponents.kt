@@ -3,6 +3,7 @@ package com.iua.app.ui.components.app
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -58,9 +59,8 @@ fun ClickableTextComponent(
                 pushStringAnnotation(tag = "CLICKABLE", annotation = matchingClickableWord)
                 withStyle(
                     style = SpanStyle(
-                        color = Color.Blue,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 16.sp,
-                        textDecoration = TextDecoration.Underline
                     )
                 ) {
                     append("$trimmedWord ")
@@ -73,6 +73,9 @@ fun ClickableTextComponent(
     }
     ClickableText(
         text = annotatedText,
+        style = MaterialTheme.typography.bodyLarge.copy( // Usa el estilo definido en typography
+            color = MaterialTheme.colorScheme.onBackground // Usa el color del tema
+        ),
         modifier = modifier, // Aquí se aplica el modificador
         onClick = { offset ->
             annotatedText.getStringAnnotations(tag = "CLICKABLE", start = offset, end = offset)

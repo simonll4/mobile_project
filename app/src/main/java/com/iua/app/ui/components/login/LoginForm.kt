@@ -1,11 +1,13 @@
 package com.iua.app.ui.components.login
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.iua.app.R
 import com.iua.app.ui.components.app.FieldTextComponent
@@ -21,7 +23,7 @@ fun LoginForm(viewModel: LoginViewModel) {
         labelValue = stringResource(R.string.email),
         icon = Icons.Default.Email,
         text = email,
-        fieldType = FieldType.EMAIL
+        fieldType = FieldType.EMAIL,
     ) {
         viewModel.onLoginChanged(it, password)
     }

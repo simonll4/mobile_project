@@ -1,5 +1,7 @@
 package com.iua.app.ui.components.app
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -57,18 +60,21 @@ fun FieldTextComponent(
     TextField(
         value = text,
         onValueChange = { onTextChanged(it) },
-        label = { Text(text = labelValue) },
+        label = { Text(text = labelValue, style = MaterialTheme.typography.bodyMedium) },
         modifier = Modifier
-            .padding(5.dp)
+            .padding(7.dp)
             .fillMaxWidth()
+            .border(1.dp, MaterialTheme.colorScheme.onPrimary, RoundedCornerShape(15.dp))
             .clip(RoundedCornerShape(15.dp)),
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,
         singleLine = true,
         maxLines = 1,
         colors = TextFieldDefaults.colors(
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
+            focusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+            focusedContainerColor = MaterialTheme.colorScheme.surface, // Color de fondo cuando está enfocado
+            unfocusedContainerColor = MaterialTheme.colorScheme.background, // Color de fondo cuando no está enfocado
         ),
         leadingIcon = {
             Icon(

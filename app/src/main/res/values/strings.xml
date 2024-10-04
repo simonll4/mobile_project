@@ -31,6 +31,7 @@
     <string name="already_have_an_account">Aready have an account? Login</string>
     <string name="login_button">Login</string>
     <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="cultural_events">Cultural Events</string>
 
 
 </resources>
