@@ -1,6 +1,7 @@
 package com.iua.app.ui.screens.profile
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Arrangement
@@ -72,13 +73,13 @@ fun ProfileScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.Black)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(14.dp)
                     .align(Alignment.TopCenter)
             ) {
                 TopProfileLayout(user)
@@ -98,7 +99,7 @@ fun TopProfileLayout(user: Profile) {
             .height(100.dp)
             .padding(2.dp),
         shape = RoundedCornerShape(16.dp),
-        color = Color(0xFF1C1C1C)
+        color = MaterialTheme.colorScheme.surface
     ) {
         Row(
             modifier = Modifier
@@ -114,12 +115,13 @@ fun TopProfileLayout(user: Profile) {
                     modifier = Modifier
                         .size(60.dp)
                         .clip(CircleShape),
-                    tint = Color.Green
+                    tint = MaterialTheme.colorScheme.primary
                 )
                 Column(modifier = Modifier.padding(start = 12.dp)) {
                     Text(
                         text = "${user.name} ${user.lastName}",
-                        style = MaterialTheme.typography.titleLarge.copy(color = Color.White)
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }
@@ -133,16 +135,15 @@ fun MainSection(navController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        color = Color(0xFF1C1C1E)
+        color = MaterialTheme.colorScheme.surface
     ) {
         Column(
             modifier = Modifier.padding(10.dp)
         ) {
             Text(
                 text = "Mi cuenta y Configuración",
-                color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Card(
@@ -151,7 +152,8 @@ fun MainSection(navController: NavHostController) {
                     .padding(8.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFF333333)
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
@@ -160,7 +162,7 @@ fun MainSection(navController: NavHostController) {
                         icon = Icons.Default.Person,
                         title = "Datos personales",
                         description = "Nombre, mail y DNI.",
-                        onClick = { navController.navigate(AppScreens.PersonalDataScreen.routes) }
+                        onClick = { navController.navigate(AppScreens.PersonalDataScreen.routes) },
                     )
                     HorizontalDivider(thickness = 1.dp, color = Color(0xFF444444))
                     ProfileItem(
@@ -187,19 +189,19 @@ fun ProfileItem(icon: ImageVector, title: String, description: String, onClick: 
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = Color.White,
-            modifier = Modifier.size(24.dp)
+            tint = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.size(32.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column {
-            Text(text = title, color = Color.White, fontWeight = FontWeight.Bold)
-            Text(text = description, color = Color.Gray, fontSize = 12.sp)
+            Text(text = title, color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleLarge)
+            Text(text = description, color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.bodyMedium)
         }
         Spacer(modifier = Modifier.weight(1f))
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
             contentDescription = null,
-            tint = Color.Gray,
+            tint = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.size(16.dp)
         )
     }
@@ -219,8 +221,8 @@ fun ButtonSection(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF333333),
-                contentColor = Color.White
+                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onBackground
             ),
             shape = RoundedCornerShape(50)
         ) {
@@ -230,10 +232,10 @@ fun ButtonSection(modifier: Modifier = Modifier) {
                 Icon(
                     imageVector = Icons.Default.Headset,
                     contentDescription = "Help icon",
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "Necesito ayuda", color = Color.White)
+                Text(text = "Necesito ayuda", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleMedium)
             }
         }
         TextButton(
@@ -242,8 +244,8 @@ fun ButtonSection(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = "Cerrar sesión",
-                color = Color(0xFF00FF00),
-                fontWeight = FontWeight.Bold
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.titleLarge,
             )
         }
     }

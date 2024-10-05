@@ -8,6 +8,6 @@ val LightBlueAccent4 = Color(0xFF0091EA)
 
 val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
-val Grey = Color(0xFFCBCBCB)
+val Grey = Color(0xFFC2C2C2)
 val DarkGrey = Color(0xFF262626)  // Con 100% opacidad (FF al inicio)
-
+val GreyContainerBlack = Color(0xFF1C1B1F)  // Con 100% opacidad (FF al inicio)
