@@ -24,11 +24,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.iua.app.ui.components.profile.TopAppBarComponent
+import com.iua.app.R
+import com.iua.app.ui.components.TopAppBarComponent
 
 
 @Composable
@@ -38,7 +40,11 @@ fun NotificationsScreen(navController: NavHostController) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
         topBar = {
-            TopAppBarComponent(navController, "Notificaciones", Icons.AutoMirrored.Filled.ArrowBack)
+            TopAppBarComponent(
+                navController,
+                stringResource(R.string.notifications_top_bar),
+                Icons.AutoMirrored.Filled.ArrowBack
+            )
         }
     ) { paddingValues ->
         Column(
@@ -48,25 +54,36 @@ fun NotificationsScreen(navController: NavHostController) {
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
-            // Section: Notificaciones push
             Text(
-                text = "Notificaciones push",
+                text = stringResource(R.string.notifications_push_title),
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(vertical = 16.dp)
             )
-            NotificationToggleItem("Recordatorios", "Recordatorios de eventos")
-            NotificationToggleItem("Eventos Cerca", "Eventos cerca de ti")
-            NotificationToggleItem("Eventos", "Eventos que quizas te gusten")
+            NotificationToggleItem(
+                stringResource(R.string.notifications_reminders_title),
+                stringResource(R.string.notifications_reminders_subtitle)
+            )
+            NotificationToggleItem(
+                stringResource(R.string.notifications_events_nearby_title),
+                stringResource(R.string.notifications_events_nearby_subtitle)
+            )
+            NotificationToggleItem(
+                stringResource(R.string.notifications_possible_events_title),
+                stringResource(R.string.notifications_possible_events_subtitle)
+            )
             Spacer(modifier = Modifier.height(32.dp))
             Text(
-                text = "E-mails",
+                text = stringResource(R.string.notifications_email_title),
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(vertical = 16.dp)
             )
-            NotificationToggleItem("Ingreso", "Ingreso a tu cuenta ")
-            NotificationToggleItem("Promocionales", "Eventos con descuentos")
+            NotificationToggleItem(
+                stringResource(R.string.notifications_login_title),
+                stringResource(R.string.notifications_login_subtitle)
+            )
+            NotificationToggleItem(stringResource(R.string.notifications_promotional_title), stringResource(R.string.notifications_promotional_subtitle))
         }
     }
 }
@@ -97,7 +114,10 @@ fun NotificationToggleItem(title: String, subtitle: String) {
         Switch(
             checked = isChecked,
             onCheckedChange = { isChecked = it },
-            colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = MaterialTheme.colorScheme.primary)
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.White,
+                checkedTrackColor = MaterialTheme.colorScheme.primary
+            )
         )
     }
 }

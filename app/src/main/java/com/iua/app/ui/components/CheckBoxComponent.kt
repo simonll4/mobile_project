@@ -1,4 +1,4 @@
-package com.iua.app.ui.components.app
+package com.iua.app.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

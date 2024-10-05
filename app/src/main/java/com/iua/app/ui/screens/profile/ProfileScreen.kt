@@ -1,7 +1,6 @@
 package com.iua.app.ui.screens.profile
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Arrangement
@@ -39,15 +38,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.iua.app.R
 import com.iua.app.mock.Profile
-import com.iua.app.ui.components.profile.TopAppBarComponent
+import com.iua.app.ui.components.TopAppBarComponent
 import com.iua.app.ui.navigation.AppScreens
 import com.iua.app.ui.view_models.ProfileViewModel
 
@@ -65,7 +64,7 @@ fun ProfileScreen(
         topBar = {
             TopAppBarComponent(
                 navController,
-                "Perfil",
+                stringResource(id = R.string.profile_top_bar),
                 Icons.AutoMirrored.Filled.ArrowBack
             )
         }
@@ -141,7 +140,7 @@ fun MainSection(navController: NavHostController) {
             modifier = Modifier.padding(10.dp)
         ) {
             Text(
-                text = "Mi cuenta y Configuración",
+                text = stringResource(R.string.profile_main_section_title),
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
@@ -160,15 +159,15 @@ fun MainSection(navController: NavHostController) {
                 Column {
                     ProfileItem(
                         icon = Icons.Default.Person,
-                        title = "Datos personales",
-                        description = "Nombre, mail y DNI.",
+                        title = stringResource(R.string.profile_personal_data_title),
+                        description = stringResource(R.string.profile_personal_data_description),
                         onClick = { navController.navigate(AppScreens.PersonalDataScreen.routes) },
                     )
                     HorizontalDivider(thickness = 1.dp, color = Color(0xFF444444))
                     ProfileItem(
                         icon = Icons.Default.Settings,
-                        title = "Personalización",
-                        description = "Notificaciones, modo oscuro, etc.",
+                        title = stringResource(R.string.profile_app_customization_title),
+                        description = stringResource(R.string.profile_app_customization_description),
                         onClick = { navController.navigate(AppScreens.AppCustomizationScreen.routes) }
                     )
                 }
@@ -216,7 +215,7 @@ fun ButtonSection(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = { /* Handle "Necesito ayuda" click */ },
+            onClick = { /* TODO Handle "Necesito ayuda" click */ },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
@@ -235,15 +234,15 @@ fun ButtonSection(modifier: Modifier = Modifier) {
                     tint = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "Necesito ayuda", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleMedium)
+                Text(text = stringResource(R.string.help_button), color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleMedium)
             }
         }
         TextButton(
-            onClick = { /* Handle "Cerrar sesión" click */ },
+            onClick = { /*TODO  Handle "Cerrar sesión" click */ },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Cerrar sesión",
+                text = stringResource(R.string.logout_button),
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleLarge,
             )

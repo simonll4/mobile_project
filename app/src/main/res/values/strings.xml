@@ -29,6 +29,7 @@
     <string name="password">Password</string>
     <string name="repeat_password">Repeat your Password</string>
     <string name="terms_and_conditions">By continuing you accept our Privacy Policy and Terms of Use</string>
+
     <string name="register_button">Register</string>
 
     <!-- Login Screen -->
@@ -36,6 +37,42 @@
     <string name="login_button">Login</string>
     <string name="dont_have_account">Don\'t have an account? Sign Up</string>
     <string name="cultural_events">Cultural Events</string>
+    <string name="terms_and_conditions_top_bar">Terms and Conditions</string>
+    <string name="accept_terms_and_conditions">I agree to the terms and conditions</string>
+    <string name="home_search">Explore events</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_top_bar">Profile</string>
+    <string name="profile_main_section_title">My Account and Settings</string>
+    <string name="profile_personal_data_title">Personal data</string>
+    <string name="profile_personal_data_description">Name, email and ID.</string>
+    <string name="profile_app_customization_title">Customization</string>
+    <string name="profile_app_customization_description">Notifications, dark mode, etc.</string>
+    <string name="help_button">I need help</string>
+    <string name="logout_button">Log out</string>
+    <string name="personal_data_top_bar">My Personal Data</string>
+    <string name="personal_data_name">Name</string>
+    <string name="personal_data_last_name">Last Name</string>
+    <string name="personal_data_email">Email</string>
+    <string name="personal_data_phone">Telephone</string>
+    <string name="personal_data_id">Identification</string>
+    <string name="personal_data_delete_account_button">Delete Account</string>
+    <string name="configuration_top_bar">Configuration</string>
+    <string name="configuration_dark_mode">Dark Mode</string>
+    <string name="configuration_notifications">Notifications</string>
+    <string name="notifications_top_bar">Notifications</string>
+    <string name="notifications_push_title">Notifications Push</string>
+    <string name="notifications_reminders_title">Reminders</string>
+    <string name="notifications_reminders_subtitle">Event Reminders</string>
+    <string name="notifications_events_nearby_title">Events Nearby</string>
+    <string name="notifications_events_nearby_subtitle">Events near you</string>
+    <string name="notifications_possible_events_title">Events</string>
+    <string name="notifications_possible_events_subtitle">Events you might like</string>
+    <string name="notifications_email_title">E-mails</string>
+    <string name="notifications_login_title">Login</string>
+    <string name="notifications_login_subtitle">Login to your account</string>
+    <string name="notifications_promotional_title">Promotional</string>
+    <string name="notifications_promotional_subtitle">Events with discounts</string>
 
 
 </resources>

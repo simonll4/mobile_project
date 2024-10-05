@@ -32,15 +32,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
+import com.iua.app.R
 import com.iua.app.mock.Profile
-import com.iua.app.ui.components.profile.TopAppBarComponent
+import com.iua.app.ui.components.TopAppBarComponent
 import com.iua.app.ui.view_models.ProfileViewModel
 
 @Composable
@@ -53,7 +54,7 @@ fun PersonalDataScreen(viewModel: ProfileViewModel = hiltViewModel(), navControl
         topBar = {
             TopAppBarComponent(
                 navController = navController,
-                 "Mis datos personales",
+                 stringResource(id = R.string.personal_data_top_bar),
                  Icons.AutoMirrored.Filled.ArrowBack
             )
         }
@@ -83,39 +84,38 @@ fun PersonalDataScreen(viewModel: ProfileViewModel = hiltViewModel(), navControl
             }
             Spacer(modifier = Modifier.height(24.dp))
             ProfileDataSection(
-                label = "Nombre",
+                label = stringResource(id = R.string.personal_data_name),
                 value = user.name,
-                onEditClick = { /* Acción de edición */ }
+                onEditClick = { /* TODO Acción de edición */ }
             )
             ProfileDataSection(
-                label = "Apellido",
+                label = stringResource(id = R.string.personal_data_last_name),
                 value = user.lastName,
-                onEditClick = { /* Acción de edición */ }
+                onEditClick = { /* TODO Acción de edición */ }
             )
 
             ProfileDataSection(
-                label = "Correo electrónico",
+                label = stringResource(id = R.string.personal_data_email),
                 value = user.email,
-                onEditClick = { /* Acción de edición */ }
+                onEditClick = { /* TODO Acción de edición */ }
             )
 
             ProfileDataSection(
-                label = "Telefono",
+                label = stringResource(id = R.string.personal_data_phone),
                 value = user.phone,
-                onEditClick = { /* Acción de edición */ }
+                onEditClick = { /* TODO Acción de edición */ }
             )
 
             ProfileDataSection(
-                label = "Número de documento",
+                label = stringResource(id = R.string.personal_data_id),
                 value = user.dni,
-                onEditClick = { /* Acción de edición */ }
+                onEditClick = { /* TODO Acción de edición */ }
             )
 
-            Spacer(modifier = Modifier.weight(1f)) // Empuja el botón de eliminar hacia abajo
+            Spacer(modifier = Modifier.weight(1f))
 
-            // Botón de eliminar cuenta
             TextButton(
-                onClick = { /* Acción para eliminar cuenta */ },
+                onClick = { /* TODO Acción para eliminar cuenta */ },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 16.dp),
@@ -125,7 +125,7 @@ fun PersonalDataScreen(viewModel: ProfileViewModel = hiltViewModel(), navControl
                 )
             ) {
                 Text(
-                    text = "Eliminar cuenta",
+                    text = stringResource(id = R.string.personal_data_delete_account_button),
                     color = Color.Red,
                     style = MaterialTheme.typography.titleLarge
                 )

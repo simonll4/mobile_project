@@ -1,4 +1,4 @@
-package com.iua.app.ui.screens
+package com.iua.app.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -44,6 +44,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
@@ -55,7 +56,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.iua.app.R
 import com.iua.app.mock.Event
-import com.iua.app.ui.components.home.BottomBar
+import com.iua.app.ui.components.BottomBar
 import com.iua.app.ui.navigation.AppScreens
 import com.iua.app.ui.navigation.BottomBarNavigation
 import com.iua.app.ui.view_models.HomeViewModel
@@ -78,7 +79,7 @@ fun HomeScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .align(Alignment.TopCenter)
             ) {
-                BottomBarNavigation(homeNavController = homeNavController)
+                BottomBarNavigation(homeNavController = homeNavController, mainNavController = navController)
             }
         }
     }
@@ -86,7 +87,8 @@ fun HomeScreen(navController: NavHostController) {
 
 @Composable
 fun HomeScreenContent(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavHostController,
 ) {
     val events by viewModel.events.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
@@ -95,7 +97,7 @@ fun HomeScreenContent(
         items(events) { event ->
             val isFavorite = favorites[event.id] ?: false
             EventCard(event = event,
-                navigateToDescription = { /* TODO: Implement navigation */ },
+                navigateToDescription = { navController.navigate(AppScreens.EventDetailScreen.routes) },
                 isFavorite = isFavorite,
                 onToggleFavorite = { viewModel.toggleFavorite(event.id) })
         }
@@ -107,20 +109,19 @@ fun HomeScreenContent(
 fun HomeTopBar(navController: NavHostController) {
     CenterAlignedTopAppBar(
         title = {
-            // Uso de Row para alinear el OutlinedTextField
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(), // Asegurar que el Row ocupe toda la altura
-                verticalAlignment = Alignment.CenterVertically, // Centrar el contenido verticalmente
-                horizontalArrangement = Arrangement.Center // Centrar el contenido horizontalmente
+                    .fillMaxHeight(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
                 OutlinedTextField(
                     value = "",
-                    onValueChange = { /* Puedes implementar la acción de búsqueda */ },
+                    onValueChange = { /* TODO implementar la acción de búsqueda */ },
                     placeholder = {
                         Text(
-                            text = "Buscar en la app",
+                            text = stringResource(R.string.home_search),
                             color = MaterialTheme.colorScheme.onBackground,
                             style = MaterialTheme.typography.labelLarge
                         )
@@ -129,7 +130,7 @@ fun HomeTopBar(navController: NavHostController) {
                         IconButton(onClick = {}) {
                             Icon(
                                 imageVector = Icons.Default.Search,
-                                contentDescription = "Buscar",
+                                contentDescription = "Search",
                                 tint = MaterialTheme.colorScheme.onBackground
                             )
                         }
@@ -144,9 +145,9 @@ fun HomeTopBar(navController: NavHostController) {
                         unfocusedContainerColor = MaterialTheme.colorScheme.background,
                     ),
                     modifier = Modifier
-                        .fillMaxWidth(0.9f) // Ajusta el ancho del campo de búsqueda al 90%
-                        .height(56.dp) // Una altura adecuada para que el TextField tenga suficiente espacio
-                        .align(Alignment.CenterVertically) // Centrar el TextField verticalmente dentro del Row
+                        .fillMaxWidth(0.9f)
+                        .height(56.dp)
+                        .align(Alignment.CenterVertically)
                         .border(
                             width = 1.dp,
                             color = MaterialTheme.colorScheme.primary,
@@ -232,7 +233,7 @@ fun EventCard(
                 modifier = Modifier.clearAndSetSemantics {}
             )
             IconButton(
-                onClick = { /* TODO: Implement navigation to event details */ },
+                onClick = { navigateToDescription(event.id) },
                 modifier = Modifier
                     .size(24.dp)
                     .align(Alignment.CenterHorizontally),

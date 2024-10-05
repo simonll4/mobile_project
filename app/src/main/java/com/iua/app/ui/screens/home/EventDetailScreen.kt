@@ -1,4 +1,4 @@
-package com.iua.app.ui.screens
+package com.iua.app.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,23 +14,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.iua.app.R
 import com.iua.app.ui.components.TopAppBarComponent
 
 @Composable
-fun TermsAndConditionsScreen(navController: NavHostController) {
-
+fun  EventDetailScreen(navController: NavHostController) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black),
         topBar = {
             TopAppBarComponent(
-                navController = navController,
-                text = stringResource(R.string.terms_and_conditions_top_bar),
+                navController,
+                "",
                 Icons.AutoMirrored.Filled.ArrowBack
             )
         }
@@ -47,7 +44,7 @@ fun TermsAndConditionsScreen(navController: NavHostController) {
                     .padding(14.dp)
                     .align(Alignment.TopCenter)
             ) {
-                // Add the terms and conditions text here
+                //Agregar acá
             }
         }
     }

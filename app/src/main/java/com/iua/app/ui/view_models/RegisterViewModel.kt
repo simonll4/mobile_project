@@ -68,6 +68,7 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
         delay(2000) // Simulate a network request
         _isLoading.value = false
         _isRegisterSuccessful.value = true
+
 //        _isLoading.value = true
 //        try {
 //            delay(2000) // Simulate a network request

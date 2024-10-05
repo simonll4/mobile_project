@@ -15,6 +15,7 @@ sealed class AppScreens(val routes: String){
     object PersonalDataScreen: AppScreens("personal_data_screen")
     object AppCustomizationScreen: AppScreens("app_customization_screen")
     object NotificationsScreen: AppScreens("notifications_screen")
+    object EventDetailScreen: AppScreens("event_detail_screen")
 }
 
 sealed class HomeSections(val route: String, val label: String, val icon: ImageVector) {

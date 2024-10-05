@@ -5,6 +5,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.iua.app.ui.screens.*
+import com.iua.app.ui.screens.Auth.LoginScreen
+import com.iua.app.ui.screens.Auth.RegisterScreen
+import com.iua.app.ui.screens.home.EventDetailScreen
+import com.iua.app.ui.screens.home.HomeScreen
 import com.iua.app.ui.screens.profile.AppCustomizationScreen
 import com.iua.app.ui.screens.profile.NotificationsScreen
 import com.iua.app.ui.screens.profile.PersonalDataScreen
@@ -29,10 +33,13 @@ fun AppNavigation() {
             RegisterScreen(navController = navController)
         }
         composable(AppScreens.TermsAndConditionsScreen.routes) {
-            TermsAndConditionsScreen()
+            TermsAndConditionsScreen(navController = navController)
         }
         composable(AppScreens.HomeScreen.routes) {
             HomeScreen(navController = navController)
+        }
+        composable(AppScreens.EventDetailScreen.routes) {
+            EventDetailScreen(navController = navController)
         }
         composable(AppScreens.ProfileScreen.routes) {
             ProfileScreen(navController = navController)

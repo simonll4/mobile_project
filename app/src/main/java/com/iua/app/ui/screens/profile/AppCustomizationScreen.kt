@@ -18,25 +18,35 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.iua.app.ui.components.profile.TopAppBarComponent
+import com.iua.app.R
+import com.iua.app.ui.components.TopAppBarComponent
 import com.iua.app.ui.navigation.AppScreens
 
 @Composable
 fun AppCustomizationScreen(navController: NavHostController) {
-
+    var isChecked by remember { mutableStateOf(true) }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
         topBar = {
-            TopAppBarComponent(navController, "Configuración", Icons.AutoMirrored.Filled.ArrowBack)
+            TopAppBarComponent(
+                navController,
+                stringResource(R.string.configuration_top_bar),
+                Icons.AutoMirrored.Filled.ArrowBack
+            )
         }
     ) { paddingValues ->
         Column(
@@ -47,13 +57,13 @@ fun AppCustomizationScreen(navController: NavHostController) {
                 .padding(horizontal = 16.dp)
         ) {
             SettingsOptionWithSwitch(
-                label = "Modo oscuro",
-                isChecked = false,
-                onCheckedChange = { /* Maneja el cambio de estado */ }
+                label = stringResource(R.string.configuration_dark_mode),
+                isChecked = isChecked,
+                onCheckedChange = { isChecked = it }
             )
             HorizontalDivider(thickness = 0.5.dp, color = Color.Gray)
             SettingsOptionWithArrow(
-                label = "Notificaciones",
+                label = stringResource(R.string.configuration_notifications),
                 onClick = { navController.navigate(AppScreens.NotificationsScreen.routes) }
             )
         }
@@ -61,7 +71,11 @@ fun AppCustomizationScreen(navController: NavHostController) {
 }
 
 @Composable
-fun SettingsOptionWithSwitch(label: String, isChecked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+fun SettingsOptionWithSwitch(
+    label: String,
+    isChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,9 +92,8 @@ fun SettingsOptionWithSwitch(label: String, isChecked: Boolean, onCheckedChange:
             checked = isChecked,
             onCheckedChange = onCheckedChange,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = MaterialTheme.colorScheme.primary,
-                checkedBorderColor = MaterialTheme.colorScheme.secondary,
-                uncheckedThumbColor = MaterialTheme.colorScheme.surface,
+                checkedThumbColor = Color.White,
+                checkedTrackColor = MaterialTheme.colorScheme.primary
             )
         )
     }
