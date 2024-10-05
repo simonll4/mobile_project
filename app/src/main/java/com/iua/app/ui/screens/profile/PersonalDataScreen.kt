@@ -16,9 +16,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -30,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +49,7 @@ fun PersonalDataScreen(viewModel: ProfileViewModel = hiltViewModel(), navControl
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(MaterialTheme.colorScheme.background),
         topBar = {
             TopAppBarComponent(
                 navController = navController,
@@ -60,9 +61,9 @@ fun PersonalDataScreen(viewModel: ProfileViewModel = hiltViewModel(), navControl
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
-                .padding(horizontal = 16.dp)
+                .padding(vertical = 5.dp ,horizontal = 16.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -117,12 +118,16 @@ fun PersonalDataScreen(viewModel: ProfileViewModel = hiltViewModel(), navControl
                 onClick = { /* Acción para eliminar cuenta */ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 16.dp)
+                    .padding(vertical = 16.dp),
+                colors = ButtonDefaults.textButtonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = Color.Red
+                )
             ) {
                 Text(
                     text = "Eliminar cuenta",
                     color = Color.Red,
-                    fontSize = 16.sp
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
         }
@@ -143,21 +148,20 @@ fun ProfileDataSection(label: String, value: String, onEditClick: () -> Unit) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = label,
-                    color = Color.Gray,
-                    fontSize = 14.sp
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Text(
                     text = value,
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = MaterialTheme.typography.displayLarge.fontWeight),
                 )
             }
             IconButton(onClick = onEditClick) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Edit",
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onBackground
                 )
             }
         }

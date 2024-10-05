@@ -30,7 +30,12 @@ private val DarkColorScheme = darkColorScheme(
     onSecondary = White,
     onTertiary = White,
     onBackground = White,
-    onSurface = White  // Colores para el texto sobre estos colores
+    onSurface = White,  // Colores para el texto sobre estos colores
+
+    primaryContainer = GreyContainerBlack,
+    secondaryContainer = GreyContainerBlack
+
+
 )
 
 // Tema claro
@@ -46,7 +51,10 @@ private val LightColorScheme = lightColorScheme(
     onSecondary = Black,
     onTertiary = Black,
     onBackground = Black,
-    onSurface = Color(0xFF1C1B1F)
+    onSurface = Color(0xFF1C1B1F),
+
+    primaryContainer = White,
+    secondaryContainer = White
 )
 
 
