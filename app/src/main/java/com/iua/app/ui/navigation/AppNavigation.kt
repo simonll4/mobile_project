@@ -5,6 +5,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.iua.app.ui.screens.*
+import com.iua.app.ui.screens.profile.AppCustomizationScreen
+import com.iua.app.ui.screens.profile.NotificationsScreen
+import com.iua.app.ui.screens.profile.PersonalDataScreen
+import com.iua.app.ui.screens.profile.ProfileScreen
 
 @Composable
 fun AppNavigation() {
@@ -12,10 +16,9 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = AppScreens.SplashScreen.routes
-        //startDestination = AppScreens.HomeScreen.routes
+        //startDestination = AppScreens.SplashScreen.routes
+        startDestination = AppScreens.HomeScreen.routes
     ) {
-        // Pantallas generales
         composable(AppScreens.SplashScreen.routes) {
             SplashScreen(navController = navController)
         }
@@ -39,6 +42,9 @@ fun AppNavigation() {
         }
         composable(AppScreens.AppCustomizationScreen.routes) {
             AppCustomizationScreen(navController = navController)
+        }
+        composable(AppScreens.NotificationsScreen.routes) {
+            NotificationsScreen(navController = navController)
         }
     }
 }

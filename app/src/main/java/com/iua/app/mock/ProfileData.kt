@@ -6,6 +6,7 @@ val profileMock = Profile(
     lastName = "Doe",
     email = "john@gmail.com",
     phone = "+54351584712",
+    dni = "12345678",
     avatar = "https://imgs.search.brave.com/y28ot5NphtrGnHdSWJlMnv-kIELrZwKoxIDrEmhjoDQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzJmLzg2/LzZmLzJmODY2ZmUy/MGNjZTE3YTVlNjhi/OTcyODVkNWI2NTk5/LmpwZw"
 )
 
