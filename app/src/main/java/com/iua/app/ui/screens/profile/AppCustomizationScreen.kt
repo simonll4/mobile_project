@@ -12,6 +12,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -22,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.iua.app.ui.components.profile.TopAppBarComponent
@@ -34,7 +34,7 @@ fun AppCustomizationScreen(navController: NavHostController) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(MaterialTheme.colorScheme.background),
         topBar = {
             TopAppBarComponent(navController, "Configuración", Icons.AutoMirrored.Filled.ArrowBack)
         }
@@ -42,7 +42,7 @@ fun AppCustomizationScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
@@ -70,16 +70,17 @@ fun SettingsOptionWithSwitch(label: String, isChecked: Boolean, onCheckedChange:
     ) {
         Text(
             text = label,
-            color = Color.White,
-            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.weight(1f)
         )
         Switch(
             checked = isChecked,
             onCheckedChange = onCheckedChange,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.Green,
-                uncheckedThumbColor = Color.Gray
+                checkedThumbColor = MaterialTheme.colorScheme.primary,
+                checkedBorderColor = MaterialTheme.colorScheme.secondary,
+                uncheckedThumbColor = MaterialTheme.colorScheme.surface,
             )
         )
     }
@@ -97,21 +98,21 @@ fun SettingsOptionWithArrow(label: String, value: String? = null, onClick: () ->
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = label,
-                color = Color.White,
-                fontSize = 16.sp
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.titleLarge
             )
             value?.let {
                 Text(
                     text = it,
-                    color = Color.Gray,
-                    fontSize = 14.sp
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = MaterialTheme.typography.titleLarge,
                 )
             }
         }
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
             contentDescription = null,
-            tint = Color.Gray
+            tint = MaterialTheme.colorScheme.onBackground
         )
     }
 }
