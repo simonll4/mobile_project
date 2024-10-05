@@ -2,8 +2,10 @@ package com.iua.app.ui.components.home
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,7 +25,7 @@ fun BottomBar(homeNavController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
 
     NavigationBar(
-        containerColor = Color.White
+        containerColor = MaterialTheme.colorScheme.background,
     ) {
         screens.forEach { screen ->
             val isSelected = currentDestination?.route == screen.route
@@ -41,13 +43,21 @@ fun BottomBar(homeNavController: NavHostController) {
                         modifier = Modifier.size(35.dp),
                         imageVector = screen.icon,
                         contentDescription = screen.label,
-                        tint = if (isSelected) Color.Blue else Color.Gray
+                        tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground
                     )
                 },
                 label = {
-                    Text(text = screen.label)
+                    Text(text = screen.label, style = MaterialTheme.typography.labelLarge)
                 },
-                alwaysShowLabel = false // Para que la etiqueta se muestre solo cuando está seleccionada
+                alwaysShowLabel = false, // Para que la etiqueta se muestre solo cuando está seleccionada
+                modifier = Modifier.size(60.dp),
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = MaterialTheme.colorScheme.onBackground,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    unselectedTextColor = MaterialTheme.colorScheme.onBackground,
+                    indicatorColor = Color.Transparent // Elimina el fondo gris
+                )
             )
         }
     }
