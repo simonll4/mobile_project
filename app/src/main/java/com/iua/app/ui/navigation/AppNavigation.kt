@@ -12,8 +12,8 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = AppScreens.SplashScreen.routes
-        //startDestination = AppScreens.HomeScreen.routes
+        //startDestination = AppScreens.SplashScreen.routes
+        startDestination = AppScreens.HomeScreen.routes
     ) {
         // Pantallas generales
         composable(AppScreens.SplashScreen.routes) {

@@ -41,7 +41,7 @@ private val LightColorScheme = lightColorScheme(
 
     // Otros colores por defecto
     background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    surface = Grey,
     onPrimary = Black,
     onSecondary = Black,
     onTertiary = Black,
