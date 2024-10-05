@@ -36,7 +36,7 @@ fun NotificationsScreen(navController: NavHostController) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(MaterialTheme.colorScheme.background),
         topBar = {
             TopAppBarComponent(navController, "Notificaciones", Icons.AutoMirrored.Filled.ArrowBack)
         }
@@ -44,15 +44,15 @@ fun NotificationsScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
             // Section: Notificaciones push
             Text(
                 text = "Notificaciones push",
-                color = Color.White,
-                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(vertical = 16.dp)
             )
             NotificationToggleItem("Recordatorios", "Recordatorios de eventos")
@@ -61,8 +61,8 @@ fun NotificationsScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(32.dp))
             Text(
                 text = "E-mails",
-                color = Color.White,
-                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(vertical = 16.dp)
             )
             NotificationToggleItem("Ingreso", "Ingreso a tu cuenta ")
@@ -85,19 +85,19 @@ fun NotificationToggleItem(title: String, subtitle: String) {
         Column {
             Text(
                 text = title,
-                color = Color.White,
-                style = MaterialTheme.typography.bodySmall
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.bodyLarge
             )
             Text(
                 text = subtitle,
-                color = Color.Gray,
-                style = MaterialTheme.typography.bodySmall
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+                style = MaterialTheme.typography.bodyMedium
             )
         }
         Switch(
             checked = isChecked,
             onCheckedChange = { isChecked = it },
-            colors = SwitchDefaults.colors(checkedThumbColor = Color.Green)
+            colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = MaterialTheme.colorScheme.primary)
         )
     }
 }
