@@ -38,8 +38,9 @@ fun AppNavigation() {
         composable(AppScreens.HomeScreen.routes) {
             HomeScreen(navController = navController)
         }
-        composable(AppScreens.EventDetailScreen.routes) {
-            EventDetailScreen(navController = navController)
+        composable("${AppScreens.EventDetailScreen.routes}/{eventId}") { backStackEntry ->
+            val eventId = backStackEntry.arguments?.getString("eventId") ?: return@composable
+            EventDetailScreen(navController = navController, eventId = eventId)
         }
         composable(AppScreens.ProfileScreen.routes) {
             ProfileScreen(navController = navController)

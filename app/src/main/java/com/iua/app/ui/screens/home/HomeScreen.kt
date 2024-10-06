@@ -97,7 +97,9 @@ fun HomeScreenContent(
         items(events) { event ->
             val isFavorite = favorites[event.id] ?: false
             EventCard(event = event,
-                navigateToDescription = { navController.navigate(AppScreens.EventDetailScreen.routes) },
+                navigateToDescription = {
+                    navController.navigate("${AppScreens.EventDetailScreen.routes}/${event.id}")
+                },
                 isFavorite = isFavorite,
                 onToggleFavorite = { viewModel.toggleFavorite(event.id) })
         }
