@@ -65,13 +65,15 @@ android {
 
 dependencies {
 
-
-
     implementation(libs.androidx.runtime.livedata)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
     implementation(libs.androidx.material.icons.extended)
+
+    // retrofit
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
 
     // Coil for image loading
     implementation (libs.coil.compose.v222)
@@ -106,8 +108,10 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
+
     // Instrumented tests
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
@@ -120,4 +124,5 @@ dependencies {
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
+
 }

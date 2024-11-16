@@ -2,40 +2,62 @@ package com.iua.app.ui.view_models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iua.app.mock.Event
-import com.iua.app.mock.eventsMock
+import com.iua.app.domain.model.EventsModel
+import com.iua.app.domain.model.Resource
+import com.iua.app.domain.usecase.GetEventsUseCase
+import com.iua.app.domain.usecase.UpdateEventsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//@HiltViewModel
-//class HomeViewModel @Inject constructor(
-//    private val getEventsUseCase: GetEventsUseCase, private val saveEventsUseCase: SaveEventsUseCase
-//) : ViewModel() {}
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val getEventsUseCase: GetEventsUseCase,
+    private val updateEventsUseCase: UpdateEventsUseCase
+) : ViewModel() {
 
-class HomeViewModel @Inject constructor() : ViewModel() {
 
-    private val _events = MutableStateFlow<List<Event>>(emptyList())
-    val events: StateFlow<List<Event>> = _events
+    private val _events = MutableStateFlow<Resource<MutableList<EventsModel>>>(Resource.Loading())
+    val events: StateFlow<Resource<MutableList<EventsModel>>> = _events
 
     private val _favorites = MutableStateFlow<Map<String, Boolean>>(emptyMap())
     val favorites: StateFlow<Map<String, Boolean>> = _favorites
 
     init {
-        loadMockEvents()
+        fetchEvents()
     }
 
-    private fun loadMockEvents() {
+    private fun fetchEvents() {
         viewModelScope.launch {
-            _events.value = eventsMock
+            getEventsUseCase().collect { resource ->
+                _events.value = resource
+            }
         }
     }
 
-    fun toggleFavorite(eventId: String) {
-        val currentFavorites = _favorites.value.toMutableMap()
-        val isFavorite = currentFavorites[eventId] ?: false
-        currentFavorites[eventId] = !isFavorite
-        _favorites.value = currentFavorites
+    fun toggleFavorite(event: EventsModel) {
+        viewModelScope.launch {
+            val updatedEvent = event.copy(isFavorite = !event.isFavorite)
+            updateEventsUseCase(event.id, updatedEvent.isFavorite).collect { result ->
+
+                if (result is Resource.Success) {
+                    _events.value = when (val currentEvents = _events.value) {
+                        is Resource.Success -> {
+                            val updatedList = currentEvents.data?.toMutableList()?.apply {
+                                val index = indexOfFirst { it.id == updatedEvent.id }
+                                if (index != -1) this[index] = updatedEvent
+                            }
+                            Resource.Success(updatedList)
+                        }
+
+                        else -> currentEvents
+                    }
+                }
+
+            }
+        }
     }
+
 }

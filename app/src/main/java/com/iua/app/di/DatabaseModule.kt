@@ -28,5 +28,4 @@ class DatabaseModule {
     @Provides
     fun provideEventsDao(db: AppDatabase) = db.entityDao()
 
-
 }

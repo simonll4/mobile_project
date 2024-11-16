@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -55,6 +56,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.iua.app.R
+import com.iua.app.domain.model.EventsModel
+import com.iua.app.domain.model.Resource
 import com.iua.app.mock.Event
 import com.iua.app.ui.components.BottomBar
 import com.iua.app.ui.navigation.AppScreens
@@ -79,7 +82,10 @@ fun HomeScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .align(Alignment.TopCenter)
             ) {
-                BottomBarNavigation(homeNavController = homeNavController, mainNavController = navController)
+                BottomBarNavigation(
+                    homeNavController = homeNavController,
+                    mainNavController = navController
+                )
             }
         }
     }
@@ -90,20 +96,71 @@ fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     navController: NavHostController,
 ) {
-    val events by viewModel.events.collectAsState()
+    val eventsResource by viewModel.events.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
 
-    LazyColumn {
-        items(events) { event ->
-            val isFavorite = favorites[event.id] ?: false
-            EventCard(event = event,
-                navigateToDescription = {
-                    navController.navigate("${AppScreens.EventDetailScreen.routes}/${event.id}")
-                },
-                isFavorite = isFavorite,
-                onToggleFavorite = { viewModel.toggleFavorite(event.id) })
+//    LazyColumn {
+//        items(events) { event ->
+//            val isFavorite = favorites[event.id] ?: false
+//            EventCard(event = event,
+//                navigateToDescription = {
+//                    navController.navigate("${AppScreens.EventDetailScreen.routes}/${event.id}")
+//                },
+//                isFavorite = isFavorite,
+//                onToggleFavorite = { viewModel.toggleFavorite(event.id) })
+//        }
+//    }
+
+//    when (eventsResource) {
+//        is Resource.Loading -> {
+//            // todo mejorar esto
+//            CircularProgressIndicator()
+//        }
+//        is Resource.Success -> {
+//            val events = (eventsResource as Resource.Success<MutableList<EventsModel>>).data ?: emptyList()
+//            LazyColumn {
+//                items(events) { event ->
+//                    val isFavorite = favorites[event.id] ?: false
+//                    EventCard(event = event,
+//                        navigateToDescription = {
+//                            navController.navigate("${AppScreens.EventDetailScreen.routes}/${event.id}")
+//                        },
+//                        isFavorite = isFavorite,
+//                        onToggleFavorite = { viewModel.toggleFavorite(event.id) })
+//                }
+//            }
+//        }
+//        is Resource.Error -> {
+//            // todo aca poner que no se pudo cargar los eventos
+//            Text(text = "Error: ${(eventsResource as Resource.Error).message}")
+//        }
+//    }
+
+    when (eventsResource) {
+        is Resource.Loading -> {
+            CircularProgressIndicator()
+        }
+        is Resource.Success -> {
+            val events = (eventsResource as Resource.Success<MutableList<EventsModel>>).data ?: emptyList()
+            LazyColumn {
+                items(events) { event ->
+                    val isFavorite = event.isFavorite
+                    EventCard(
+                        event = event,
+                        navigateToDescription = {
+                            navController.navigate("${AppScreens.EventDetailScreen.routes}/${event.id}")
+                        },
+                        isFavorite = isFavorite,
+                        onToggleFavorite = { viewModel.toggleFavorite(event) }
+                    )
+                }
+            }
+        }
+        is Resource.Error -> {
+            Text(text = "Error: ${(eventsResource as Resource.Error).message}")
         }
     }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -160,7 +217,9 @@ fun HomeTopBar(navController: NavHostController) {
         },
         navigationIcon = {
             Row(
-                modifier = Modifier.fillMaxHeight().padding(start = 10.dp),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(start = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = {}) {
@@ -174,7 +233,9 @@ fun HomeTopBar(navController: NavHostController) {
         },
         actions = {
             Row(
-                modifier = Modifier.fillMaxHeight().padding(end = 10.dp),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(end = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = { navController.navigate(AppScreens.ProfileScreen.routes) }) {
@@ -200,7 +261,7 @@ fun HomeTopBar(navController: NavHostController) {
 
 @Composable
 fun EventCard(
-    event: Event,
+    event: EventsModel,
     navigateToDescription: (String) -> Unit,
     isFavorite: Boolean,
     onToggleFavorite: () -> Unit
@@ -211,7 +272,7 @@ fun EventCard(
             .clip(RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.surface)
             .border(shape = RoundedCornerShape(16.dp), width = 1.dp, color = Color.Gray)
-            .clickable { navigateToDescription(event.id) }
+            .clickable { navigateToDescription(event.id.toString()) }
     ) {
         PostImage(event, Modifier.padding(16.dp))
         Column(
@@ -235,7 +296,7 @@ fun EventCard(
                 modifier = Modifier.clearAndSetSemantics {}
             )
             IconButton(
-                onClick = { navigateToDescription(event.id) },
+                onClick = { navigateToDescription(event.id.toString()) },
                 modifier = Modifier
                     .size(24.dp)
                     .align(Alignment.CenterHorizontally),
@@ -255,7 +316,7 @@ fun EventCard(
 }
 
 @Composable
-fun EventDescription(event: Event) {
+fun EventDescription(event: EventsModel) {
     Text(
         text = event.description,
         style = MaterialTheme.typography.bodyMedium,
@@ -265,7 +326,7 @@ fun EventDescription(event: Event) {
 }
 
 @Composable
-fun PostImage(event: Event, modifier: Modifier = Modifier) {
+fun PostImage(event: EventsModel, modifier: Modifier = Modifier) {
     AsyncImage(
         model = event.image,
         contentDescription = null,
@@ -277,7 +338,7 @@ fun PostImage(event: Event, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun EventTitle(post: Event) {
+fun EventTitle(post: EventsModel) {
     Text(
         text = post.title,
         style = MaterialTheme.typography.titleMedium.copy(fontWeight = MaterialTheme.typography.displayLarge.fontWeight),

@@ -1,5 +1,6 @@
 package com.iua.app.di
 
+
 import com.iua.app.data.repository.EventsRepositoryImpl
 import com.iua.app.domain.repository.EventsRepository
 import dagger.Binds
@@ -10,12 +11,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoyModule {
-
+abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindsEventsRepository(repositoryImpl: EventsRepositoryImpl): EventsRepository
-
+    abstract fun bindsEventsRepository(
+        repositoryImpl: EventsRepositoryImpl
+    ): EventsRepository
 
 }

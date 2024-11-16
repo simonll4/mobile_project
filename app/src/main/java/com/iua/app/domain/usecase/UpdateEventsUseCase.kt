@@ -7,13 +7,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class SaveEventsUseCase @Inject constructor(
+class UpdateEventsUseCase @Inject constructor(
     private val repository: EventsRepository
 ) {
-    operator fun invoke(eventsModel: EventsModel): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(id: Long, isFavorite: Boolean): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading())
-            emit(Resource.Success(data = repository.saveEvents(eventsModel)))
+            val result = repository.updateEvent(id, isFavorite)
+            emit(Resource.Success(data = result))
         } catch (e: Exception) {
             emit(Resource.Error(e.message ?: "An error occurred"))
         }
