@@ -10,11 +10,12 @@ data class EventDTO(
     val subtitle: String,
     val description: String,
     val image: String,
-    val date: String,  // Recibimos la fecha como String
+    val date: String,
+    val location: String,
 ) {
-    // Función para convertir la fecha String a Date
+
     fun getDateAsDate(): Date {
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-        return format.parse(date) ?: Date() // Devolver una fecha por defecto si no se puede parsear
+        return format.parse(date) ?: Date()
     }
 }

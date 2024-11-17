@@ -9,6 +9,9 @@ import com.iua.app.data.local.entity.EventEntity
 @Dao
 interface EventDAO {
 
+    @Query("SELECT * FROM events WHERE id = :id LIMIT 1")
+    suspend fun getEventById(id: Long): EventEntity?
+
     @Query("SELECT * FROM events")
     suspend fun getEvents(): MutableList<EventEntity>
 

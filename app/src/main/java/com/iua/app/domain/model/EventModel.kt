@@ -11,7 +11,8 @@ data class EventModel(
     var image: String = "",
     var subtitle: String = "",
     var isFavorite: Boolean = false,
-    var date: Date
+    var date: Date,
+    var location: String = ""
 )
 
 // API (DTO) -> Modelo de Dominio
@@ -22,7 +23,8 @@ fun EventDTO.toEventsModel(): EventModel {
         description = this.description,
         image = this.image,
         subtitle = this.subtitle,
-        date = this.getDateAsDate()
+        date = this.getDateAsDate(),
+        location = this.location
     )
 }
 
@@ -35,7 +37,8 @@ fun EventModel.toEventsEntity(): EventEntity {
         image = this.image,
         subtitle = this.subtitle,
         isFavorite = this.isFavorite,
-        date = this.date
+        date = this.date,
+        location = this.location
     )
 }
 
@@ -48,7 +51,8 @@ fun EventEntity.toEventsModel(): EventModel {
         image = this.image,
         subtitle = this.subtitle,
         isFavorite = this.isFavorite,
-        date = this.date
+        date = this.date,
+        location = this.location
     )
 }
 

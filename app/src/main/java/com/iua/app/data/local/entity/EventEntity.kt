@@ -27,6 +27,9 @@ data class EventEntity(
     @ColumnInfo(name = "date")
     val date: Date,
 
+    @ColumnInfo(name = "location")
+    val location: String,
+
     @ColumnInfo(name = "is_favorite")
     var isFavorite: Boolean = false
 )

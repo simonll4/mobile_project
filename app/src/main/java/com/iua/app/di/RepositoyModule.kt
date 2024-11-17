@@ -2,7 +2,9 @@ package com.iua.app.di
 
 
 import com.iua.app.data.repository.EventsRepositoryImpl
+import com.iua.app.data.repository.UserRepositoryImpl
 import com.iua.app.domain.repository.EventsRepository
+import com.iua.app.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,5 +20,11 @@ abstract class RepositoryModule {
     abstract fun bindsEventsRepository(
         repositoryImpl: EventsRepositoryImpl
     ): EventsRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindUserRepository(
+        repositoryImpl: UserRepositoryImpl
+    ): UserRepository
 
 }

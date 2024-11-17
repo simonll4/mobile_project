@@ -1,7 +1,9 @@
 package com.iua.app.ui.view_models
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.iua.app.domain.model.UserModel
 import com.iua.app.mock.Profile
 import com.iua.app.mock.ProfilePopularList
 import com.iua.app.mock.profileMock
@@ -16,6 +18,8 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
 
     private val _profile = MutableLiveData<Profile>()
     val profile: MutableLiveData<Profile> = _profile
+
+
 
     private val _popularProjects = MutableStateFlow<List<ProfilePopularList>>(emptyList())
     val popularProjects: StateFlow<List<ProfilePopularList>> = _popularProjects

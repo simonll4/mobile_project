@@ -5,8 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.iua.app.ui.screens.*
-import com.iua.app.ui.screens.Auth.LoginScreen
-import com.iua.app.ui.screens.Auth.RegisterScreen
+import com.iua.app.ui.screens.auth.LoginScreen
+import com.iua.app.ui.screens.auth.RegisterScreen
 import com.iua.app.ui.screens.home.EventDetailScreen
 import com.iua.app.ui.screens.home.HomeScreen
 import com.iua.app.ui.screens.profile.AppCustomizationScreen
@@ -20,8 +20,8 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        //startDestination = AppScreens.SplashScreen.routes
-        startDestination = AppScreens.HomeScreen.routes
+        startDestination = AppScreens.SplashScreen.routes
+        //startDestination = AppScreens.HomeScreen.routes
     ) {
         composable(AppScreens.SplashScreen.routes) {
             SplashScreen(navController = navController)

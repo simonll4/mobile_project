@@ -4,12 +4,17 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.iua.app.domain.model.Resource
+import com.iua.app.domain.usecase.RegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor() : ViewModel() {
+class RegisterViewModel @Inject constructor(
+    private val registerUseCase: RegisterUseCase
+) : ViewModel() {
 
     private val _firstName = MutableLiveData<String>()
     val firstName: LiveData<String> = _firstName
@@ -53,31 +58,38 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
         _repeatPassword.value = repeatPassword
         _checkBoxState.value = checkBoxState
 
-        _registerEnable.value = email.isValidEmail() &&
-                password.isValidPassword() &&
-                password == repeatPassword &&
-                checkBoxState
+        _registerEnable.value =
+            email.isValidEmail() && password.isValidPassword() && password == repeatPassword && checkBoxState
     }
 
     private fun String.isValidEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     private fun String.isValidPassword(): Boolean = this.length >= 6
 
-    suspend fun onButtonSelected() {
-        _isLoading.value = true
-        delay(2000) // Simulate a network request
-        _isLoading.value = false
-        _isRegisterSuccessful.value = true
 
-//        _isLoading.value = true
-//        try {
-//            delay(2000) // Simulate a network request
-//            _isRegisterSuccessful.value = true
-//        } catch (e: Exception) {
-//            // Handle error
-//        } finally {
-//            _isLoading.value = false
-//        }
+    fun registerUser() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            registerUseCase(
+                firstName.value ?: "",
+                lastName.value ?: "",
+                email.value ?: "",
+                password.value ?: ""
+            ).collect { resource ->
+                when (resource) {
+                    is Resource.Loading -> {
+                    }
+
+                    is Resource.Success -> {
+                        _isRegisterSuccessful.value = true
+                    }
+
+                    is Resource.Error -> {
+                        _isRegisterSuccessful.value = false
+                    }
+                }
+                _isLoading.value = false
+            }
+        }
     }
-
 }

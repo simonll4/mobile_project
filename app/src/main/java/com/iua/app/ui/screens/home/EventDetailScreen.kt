@@ -22,9 +22,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -38,6 +38,20 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.iua.app.ui.components.TopAppBarComponent
 import com.iua.app.ui.view_models.EventDetailViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+fun Date.toFormattedDate(pattern: String = "dd/MM/yyyy"): String {
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    return sdf.format(this)
+}
+
+fun Date.toFormattedTime(pattern: String = "HH:mm"): String {
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    return sdf.format(this)
+}
+
 
 @Composable
 fun EventDetailScreen(
@@ -45,9 +59,12 @@ fun EventDetailScreen(
     eventId: String,
     viewModel: EventDetailViewModel = hiltViewModel()
 ) {
-    // Load the event using the eventId
-    viewModel.loadEvent(eventId)
+
     val event by viewModel.event.collectAsState()
+
+    LaunchedEffect(eventId) {
+        viewModel.loadEvent(eventId.toLong())
+    }
 
     event?.let {
         Scaffold(
@@ -57,7 +74,7 @@ fun EventDetailScreen(
             topBar = {
                 TopAppBarComponent(
                     navController,
-                    event!!.title,
+                    it.data?.title ?: "",
                     Icons.AutoMirrored.Filled.ArrowBack
                 )
             }
@@ -75,14 +92,15 @@ fun EventDetailScreen(
                         .align(Alignment.TopCenter)
                 ) {
                     EventDetailContent(
-                        eventTitle = it.subtitle,
-                        //TODO: Replace with actual event date and time
-                        eventDate = "2024-01-01",
-                        eventTime = "18:00",
-                        eventVenue = "Sample Venue",
-                        eventDescription = it.description,
-                        eventImage = it.image,
-                        onFavoriteClick = { /* TODO: Add logic to the favourites button */ }
+                        eventTitle = it.data?.subtitle ?: "",
+                        eventDate = it.data?.date?.toFormattedDate() ?: "Unknown Date",
+                        eventTime = it.data?.date?.toFormattedTime() ?: "Unknown Time",
+                        eventLocation = it.data?.location ?: "Unknown Location",
+                        eventDescription = it.data?.description ?: "No Description",
+                        eventImage = it.data?.image ?: "",
+                        isFavorite = it.data?.isFavorite
+                            ?: false,
+                        onFavoriteClick = { viewModel.toggleFavorite(it.data) }
                     )
                 }
             }
@@ -95,9 +113,10 @@ fun EventDetailContent(
     eventTitle: String,
     eventDate: String,
     eventTime: String,
-    eventVenue: String,
+    eventLocation: String,
     eventDescription: String,
     eventImage: String,
+    isFavorite: Boolean,
     onFavoriteClick: () -> Unit
 ) {
     Column(
@@ -106,23 +125,34 @@ fun EventDetailContent(
             .background(MaterialTheme.colorScheme.background)
             .padding(10.dp)
     ) {
-        // Event image
+        // Imagen del evento
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(250.dp)
         ) {
-            Image(
-                painter = rememberAsyncImagePainter(model = eventImage), // Replace with your image
-                contentDescription = "Event Image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
+            if (eventImage.isNotEmpty()) {
+                Image(
+                    painter = rememberAsyncImagePainter(model = eventImage),
+                    contentDescription = "Event Image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                // Placeholder de imagen si no hay URL
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Gray)
+                ) {
+                    Text(text = "No Image", modifier = Modifier.align(Alignment.Center))
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Event details
+        // Detalles del evento
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = eventTitle,
@@ -152,7 +182,7 @@ fun EventDetailContent(
                             color = MaterialTheme.colorScheme.onBackground
                         )
                         Text(
-                            text = eventVenue,
+                            text = eventLocation,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onBackground
                         )
@@ -169,7 +199,6 @@ fun EventDetailContent(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Event description
         Text(
             text = eventDescription,
             style = MaterialTheme.typography.bodyLarge,
@@ -178,7 +207,6 @@ fun EventDetailContent(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Add to favorites button
         Button(
             onClick = onFavoriteClick,
             modifier = Modifier
@@ -190,7 +218,7 @@ fun EventDetailContent(
             shape = RoundedCornerShape(8.dp)
         ) {
             Text(
-                text = "Add to Favorites",
+                text = if (isFavorite) "Remove from Favorites" else "Add to Favorites",
                 color = Color.White,
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold

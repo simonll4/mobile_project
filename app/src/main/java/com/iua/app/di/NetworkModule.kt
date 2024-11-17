@@ -1,7 +1,8 @@
 package com.iua.app.di
 
 import com.iua.app.data.remote.Constants
-import com.iua.app.data.remote.api.EventsApi
+import com.iua.app.data.remote.api.EventApi
+import com.iua.app.data.remote.api.UserApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +26,14 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideEventsApi(retrofit: Retrofit): EventsApi {
-        return retrofit.create(EventsApi::class.java)
+    fun provideEventsApi(retrofit: Retrofit): EventApi {
+        return retrofit.create(EventApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserApi(retrofit: Retrofit): UserApi {
+        return retrofit.create(UserApi::class.java)
     }
 
 }

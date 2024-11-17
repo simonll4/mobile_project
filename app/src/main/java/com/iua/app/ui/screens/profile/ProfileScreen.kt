@@ -45,30 +45,31 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.iua.app.R
+import com.iua.app.domain.model.UserModel
 import com.iua.app.mock.Profile
 import com.iua.app.ui.components.TopAppBarComponent
 import com.iua.app.ui.navigation.AppScreens
 import com.iua.app.ui.view_models.ProfileViewModel
+import com.iua.app.ui.view_models.UserViewModel
 
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
-    val user: Profile by viewModel.profile.observeAsState(initial = Profile(0, "", "", "", "", "", ""))
 
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black),
-        topBar = {
-            TopAppBarComponent(
-                navController,
-                stringResource(id = R.string.profile_top_bar),
-                Icons.AutoMirrored.Filled.ArrowBack
-            )
-        }
-    ) { paddingValues ->
+    val user by userViewModel.currentUser.observeAsState()
+
+    Scaffold(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.Black), topBar = {
+        TopAppBarComponent(
+            navController,
+            stringResource(id = R.string.profile_top_bar),
+            Icons.AutoMirrored.Filled.ArrowBack
+        )
+    }) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -91,7 +92,7 @@ fun ProfileScreen(
 }
 
 @Composable
-fun TopProfileLayout(user: Profile) {
+fun TopProfileLayout(user: UserModel?) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -118,7 +119,7 @@ fun TopProfileLayout(user: Profile) {
                 )
                 Column(modifier = Modifier.padding(start = 12.dp)) {
                     Text(
-                        text = "${user.name} ${user.lastName}",
+                        text = "${user?.firstName} ${user?.lastName}",
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onBackground
                     )
@@ -131,8 +132,7 @@ fun TopProfileLayout(user: Profile) {
 @Composable
 fun MainSection(navController: NavHostController) {
     Surface(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface
     ) {
@@ -164,12 +164,10 @@ fun MainSection(navController: NavHostController) {
                         onClick = { navController.navigate(AppScreens.PersonalDataScreen.routes) },
                     )
                     HorizontalDivider(thickness = 1.dp, color = Color(0xFF444444))
-                    ProfileItem(
-                        icon = Icons.Default.Settings,
+                    ProfileItem(icon = Icons.Default.Settings,
                         title = stringResource(R.string.profile_app_customization_title),
                         description = stringResource(R.string.profile_app_customization_description),
-                        onClick = { navController.navigate(AppScreens.AppCustomizationScreen.routes) }
-                    )
+                        onClick = { navController.navigate(AppScreens.AppCustomizationScreen.routes) })
                 }
             }
         }
@@ -193,8 +191,16 @@ fun ProfileItem(icon: ImageVector, title: String, description: String, onClick: 
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column {
-            Text(text = title, color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleLarge)
-            Text(text = description, color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = title,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = description,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
         Spacer(modifier = Modifier.weight(1f))
         Icon(
@@ -234,7 +240,11 @@ fun ButtonSection(modifier: Modifier = Modifier) {
                     tint = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = stringResource(R.string.help_button), color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = stringResource(R.string.help_button),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
         }
         TextButton(
@@ -254,7 +264,6 @@ fun ButtonSection(modifier: Modifier = Modifier) {
 @Composable
 fun ProfileScreenPreview() {
     ProfileScreen(
-        viewModel = ProfileViewModel(),
-        navController = rememberNavController()
+        viewModel = ProfileViewModel(), navController = rememberNavController()
     )
 }

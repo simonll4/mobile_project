@@ -2,7 +2,7 @@ package com.iua.app.data.repository
 
 import android.util.Log
 import com.iua.app.data.local.dao.EventDAO
-import com.iua.app.data.remote.api.EventsApi
+import com.iua.app.data.remote.api.EventApi
 import com.iua.app.domain.model.EventModel
 import com.iua.app.domain.model.toEventsEntity
 import com.iua.app.domain.model.toEventsModel
@@ -13,14 +13,14 @@ import javax.inject.Inject
 
 class EventsRepositoryImpl @Inject constructor(
     private val eventDAO: EventDAO,
-    private val eventsAPI: EventsApi
+    private val eventAPI: EventApi
 ) : EventsRepository {
 
     override suspend fun getEvents(): MutableList<EventModel> {
         return try {
 
             // Obtener los eventos desde la API
-            val eventsFromApi = eventsAPI.getEvents()
+            val eventsFromApi = eventAPI.getEvents()
 
             // Obtener los eventos locales actuales
             val localEvents = eventDAO.getEvents().associateBy { it.id }
@@ -62,6 +62,10 @@ class EventsRepositoryImpl @Inject constructor(
 
     override suspend fun getFavoriteEvents(): MutableList<EventModel> {
         return eventDAO.getFavoriteEvents().map { it.toEventsModel() }.toMutableList()
+    }
+
+    override suspend fun getEventById(id: Long): EventModel? {
+        return eventDAO.getEventById(id)?.toEventsModel()
     }
 
 }

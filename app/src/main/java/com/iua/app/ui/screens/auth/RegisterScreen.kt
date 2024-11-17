@@ -1,4 +1,4 @@
-package com.iua.app.ui.screens.Auth
+package com.iua.app.ui.screens.auth
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,12 +24,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iua.app.R
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.iua.app.ui.components.ButtonComponent
 import com.iua.app.ui.components.CheckBoxComponent
 import com.iua.app.ui.components.ClickableTextComponent
@@ -77,7 +75,7 @@ fun Register(modifier: Modifier, viewModel: RegisterViewModel, navController: Na
                 ), enabled = registerEnable
             ) {
                 print("RegisterButton: onButtonSelected")
-                coroutineScope.launch { viewModel.onButtonSelected() }
+                coroutineScope.launch { viewModel.registerUser() }
             }
             OrDivider()
             AlreadyHaveAccountText(navController)
@@ -219,13 +217,5 @@ fun AlreadyHaveAccountText(navController: NavController) {
             .fillMaxWidth()
             .wrapContentWidth(Alignment.CenterHorizontally)
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewRegisterScreen() {
-    val navController = rememberNavController()
-    val viewModel = RegisterViewModel()
-    RegisterScreen(viewModel = viewModel, navController = navController)
 }
 
