@@ -94,18 +94,3 @@ fun FieldTextComponent(
         },
     )
 }
-
-
-//TextField(
-//value = text,
-//onValueChange = { onEmailChanged(it) },
-//label = { Text(text = labelValue) },
-//keyboardOptions = KeyboardOptions.Default,
-//singleLine = true,
-//value = text,
-//onValueChange = { text = it })
-//onValueChange = TextFieldDefaults.outlinedTextFieldColors(
-//focusedBorderColor = Color(0xED17DC09),
-//focusedLabelColor = Color(0xFFFF0000),
-//cursorColor = Color(0xFF006AFF),
-//)

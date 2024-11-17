@@ -70,6 +70,8 @@ dependencies {
     implementation(composeBom)
     androidTestImplementation(composeBom)
     implementation(libs.androidx.material.icons.extended)
+    implementation (libs.accompanist.swiperefresh)
+
 
     // retrofit
     implementation (libs.retrofit)

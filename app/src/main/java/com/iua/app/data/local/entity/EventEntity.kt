@@ -3,6 +3,7 @@ package com.iua.app.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.Date
 
 @Entity(tableName = "events")
 data class EventEntity(
@@ -23,9 +24,11 @@ data class EventEntity(
     @ColumnInfo(name = "image")
     val image: String,
 
+    @ColumnInfo(name = "date")
+    val date: Date,
+
     @ColumnInfo(name = "is_favorite")
     var isFavorite: Boolean = false
-
 )
     
 

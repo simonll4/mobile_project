@@ -26,6 +26,6 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideEventsDao(db: AppDatabase) = db.entityDao()
+    fun provideEventsDao(db: AppDatabase) = db.eventDAO()
 
 }

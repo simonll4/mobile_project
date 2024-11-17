@@ -1,16 +1,14 @@
 package com.iua.app.domain.repository
 
-
 import com.iua.app.data.local.entity.EventEntity
-import com.iua.app.domain.model.EventsModel
+import com.iua.app.domain.model.EventModel
 
 interface EventsRepository {
 
-    suspend fun getEvents(): MutableList<EventsModel>
+    suspend fun getEvents(): MutableList<EventModel>
 
-    suspend fun saveEvents(eventsModel: EventsModel): Boolean
+    suspend fun getFavoriteEvents(): MutableList<EventModel>
 
-    suspend fun getFavoriteEvents(): List<EventEntity>
+    suspend fun updateFavoriteStatus(id: Long, isFavorite: Boolean): Boolean
 
-    suspend fun updateEvent(id: Long, isFavorite: Boolean): Boolean
 }

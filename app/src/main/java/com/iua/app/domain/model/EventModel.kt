@@ -2,54 +2,58 @@ package com.iua.app.domain.model
 
 import com.iua.app.data.local.entity.EventEntity
 import com.iua.app.data.remote.dto.EventDTO
+import java.util.Date
 
-data class EventsModel(
-    var id: Long ,
+data class EventModel(
+    var id: Long,
     var title: String,
     var description: String,
     var image: String = "",
     var subtitle: String = "",
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+    var date: Date
 )
 
 // API (DTO) -> Modelo de Dominio
-fun EventDTO.toEventsModel(): EventsModel {
-    //return EventsModel(title = this.title, description = this.description)
-    return EventsModel(
-        id = this.id,
-        title = this.title,
-        description = this.description,
-        image = this.image,
-        subtitle = this.subtitle
-    )
-}
-
-// Entity (Room) -> Modelo de Dominio
-fun EventEntity.toEventsModel(): EventsModel {
-    return EventsModel(
+fun EventDTO.toEventsModel(): EventModel {
+    return EventModel(
         id = this.id,
         title = this.title,
         description = this.description,
         image = this.image,
         subtitle = this.subtitle,
-        isFavorite = this.isFavorite
+        date = this.getDateAsDate()
     )
 }
-
-//// Modelo de Dominio -> API (DTO)
-//fun EventsModel.toEventDTO(): EventDTO {
-//    return EventDTO(id = 0, title = this.title, description = this.description) // Ajusta ID según necesidad
-//}
-
 
 // Modelo de Dominio -> Entity (Room)
-fun EventsModel.toEventsEntity(): EventEntity {
+fun EventModel.toEventsEntity(): EventEntity {
     return EventEntity(
-        id = this.id.toLong(),
+        id = this.id,
         title = this.title,
         description = this.description,
         image = this.image,
         subtitle = this.subtitle,
-        isFavorite = this.isFavorite
+        isFavorite = this.isFavorite,
+        date = this.date
     )
 }
+
+//// Entity (Room) -> Modelo de Dominio
+fun EventEntity.toEventsModel(): EventModel {
+    return EventModel(
+        id = this.id,
+        title = this.title,
+        description = this.description,
+        image = this.image,
+        subtitle = this.subtitle,
+        isFavorite = this.isFavorite,
+        date = this.date
+    )
+}
+
+//
+////// Modelo de Dominio -> API (DTO)
+////fun EventsModel.toEventDTO(): EventDTO {
+////    return EventDTO(id = 0, title = this.title, description = this.description)
+////}

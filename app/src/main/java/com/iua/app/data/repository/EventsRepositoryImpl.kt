@@ -1,9 +1,9 @@
 package com.iua.app.data.repository
 
+import android.util.Log
 import com.iua.app.data.local.dao.EventDAO
-import com.iua.app.data.local.entity.EventEntity
 import com.iua.app.data.remote.api.EventsApi
-import com.iua.app.domain.model.EventsModel
+import com.iua.app.domain.model.EventModel
 import com.iua.app.domain.model.toEventsEntity
 import com.iua.app.domain.model.toEventsModel
 import com.iua.app.domain.repository.EventsRepository
@@ -16,43 +16,40 @@ class EventsRepositoryImpl @Inject constructor(
     private val eventsAPI: EventsApi
 ) : EventsRepository {
 
-
-    override suspend fun getEvents(): MutableList<EventsModel> {
+    override suspend fun getEvents(): MutableList<EventModel> {
         return try {
+
+            // Obtener los eventos desde la API
             val eventsFromApi = eventsAPI.getEvents()
 
-            // Guardar en la base de datos local
-            eventsFromApi.forEach { event ->
-                eventDAO.insertEvents(event.toEventsModel().toEventsEntity())
+            // Obtener los eventos locales actuales
+            val localEvents = eventDAO.getEvents().associateBy { it.id }
+
+            // Preparar la lista para guardar en la base de datos
+            val updatedEvents = eventsFromApi.map { eventFromApi ->
+                val entity =
+                    eventFromApi.toEventsModel().toEventsEntity() // Aquí se convierte la fecha
+                localEvents[entity.id]?.let { localEvent ->
+                    entity.isFavorite = localEvent.isFavorite
+                }
+                entity
             }
 
+            // Guardar en la base de datos local
+            eventDAO.insertEvents(updatedEvents)
+
             // Retornar desde la base de datos
-            eventDAO.getEntity().map { it.toEventsModel() }.toMutableList()
+            eventDAO.getEvents().map { it.toEventsModel() }.toMutableList()
 
         } catch (e: Exception) {
+            Log.e("EventsRepositoryImpl", "getEvents: ${e.message}")
             // Si falla la API, usar solo los datos locales
-            eventDAO.getEntity().map { it.toEventsModel() }.toMutableList()
+            eventDAO.getEvents().map { it.toEventsModel() }.toMutableList()
+
         }
     }
 
-    override suspend fun saveEvents(eventsModel: EventsModel): Boolean {
-        try {
-            val result = eventDAO.insertEvents(eventsModel.toEventsEntity())
-            return result.toInt() != -1
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    //    override suspend fun updateEvent(eventModel: EventsModel): Boolean {
-//        return try {
-//            val rowsUpdated = eventDAO.updateEvent(eventModel.toEventsEntity())
-//            rowsUpdated > 0
-//        } catch (e: Exception) {
-//            false
-//        }
-//    }
-    override suspend fun updateEvent(id: Long, isFavorite: Boolean): Boolean {
+    override suspend fun updateFavoriteStatus(id: Long, isFavorite: Boolean): Boolean {
         return withContext(Dispatchers.IO) {
             try {
                 val rowsUpdated = eventDAO.updateFavoriteStatus(id, isFavorite)
@@ -63,10 +60,8 @@ class EventsRepositoryImpl @Inject constructor(
         }
     }
 
-
-    override suspend fun getFavoriteEvents(): List<EventEntity> {
-        return eventDAO.getFavoriteEvents()
+    override suspend fun getFavoriteEvents(): MutableList<EventModel> {
+        return eventDAO.getFavoriteEvents().map { it.toEventsModel() }.toMutableList()
     }
-
 
 }

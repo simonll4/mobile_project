@@ -8,7 +8,11 @@ import com.iua.app.ui.screens.home.FavoriteScreen
 import com.iua.app.ui.screens.home.HomeScreenContent
 
 @Composable
-fun BottomBarNavigation(homeNavController: NavHostController, mainNavController: NavHostController) {
+fun BottomBarNavigation(
+    homeNavController: NavHostController,
+    mainNavController: NavHostController
+) {
+    // todo las transiciones son medias chotas
     NavHost(
         navController = homeNavController,
         startDestination = HomeSections.Home.route
@@ -17,7 +21,10 @@ fun BottomBarNavigation(homeNavController: NavHostController, mainNavController:
             HomeScreenContent(navController = mainNavController)
         }
         composable(HomeSections.Favorites.route) {
-            FavoriteScreen()
+            FavoriteScreen(navController = mainNavController)
         }
     }
 }
+
+
+
