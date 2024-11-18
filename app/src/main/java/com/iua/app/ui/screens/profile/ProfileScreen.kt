@@ -32,34 +32,30 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.iua.app.R
 import com.iua.app.domain.model.UserModel
-import com.iua.app.mock.Profile
 import com.iua.app.ui.components.TopAppBarComponent
 import com.iua.app.ui.navigation.AppScreens
 import com.iua.app.ui.view_models.ProfileViewModel
-import com.iua.app.ui.view_models.UserViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel = hiltViewModel(),
-    userViewModel: UserViewModel = hiltViewModel(),
-    navController: NavHostController
+    profileViewModel: ProfileViewModel = hiltViewModel(), navController: NavHostController
 ) {
 
-    val user by userViewModel.currentUser.observeAsState()
+    val user by profileViewModel.user.collectAsState()
 
     Scaffold(modifier = Modifier
         .fillMaxSize()
@@ -86,7 +82,9 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 MainSection(navController)
             }
-            ButtonSection(modifier = Modifier.align(Alignment.BottomCenter))
+            ButtonSection(
+                modifier = Modifier.align(Alignment.BottomCenter), profileViewModel, navController
+            )
         }
     }
 }
@@ -213,7 +211,11 @@ fun ProfileItem(icon: ImageVector, title: String, description: String, onClick: 
 }
 
 @Composable
-fun ButtonSection(modifier: Modifier = Modifier) {
+fun ButtonSection(
+    modifier: Modifier = Modifier,
+    profileViewModel: ProfileViewModel,
+    navController: NavHostController
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -248,8 +250,14 @@ fun ButtonSection(modifier: Modifier = Modifier) {
             }
         }
         TextButton(
-            onClick = { /*TODO  Handle "Cerrar sesión" click */ },
-            modifier = Modifier.fillMaxWidth()
+            onClick = {
+                profileViewModel.viewModelScope.launch {
+                    profileViewModel.clearUserDataFromDataStore()
+                    navController.navigate(AppScreens.LoginScreen.routes) {
+                        popUpTo(AppScreens.ProfileScreen.routes) { inclusive = true }
+                    }
+                }
+            }, modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = stringResource(R.string.logout_button),
@@ -258,12 +266,4 @@ fun ButtonSection(modifier: Modifier = Modifier) {
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ProfileScreenPreview() {
-    ProfileScreen(
-        viewModel = ProfileViewModel(), navController = rememberNavController()
-    )
 }

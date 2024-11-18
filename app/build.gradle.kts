@@ -70,15 +70,18 @@ dependencies {
     implementation(composeBom)
     androidTestImplementation(composeBom)
     implementation(libs.androidx.material.icons.extended)
-    implementation (libs.accompanist.swiperefresh)
+    implementation(libs.accompanist.swiperefresh)
 
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
 
     // retrofit
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Coil for image loading
-    implementation (libs.coil.compose.v222)
+    implementation(libs.coil.compose.v222)
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)

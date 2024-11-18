@@ -1,4 +1,4 @@
-package com.iua.app.domain.usecase
+package com.iua.app.domain.usecase.auth
 
 import com.iua.app.domain.model.UserModel
 import com.iua.app.domain.repository.UserRepository

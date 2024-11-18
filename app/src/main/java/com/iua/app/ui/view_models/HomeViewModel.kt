@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iua.app.domain.model.EventModel
 import com.iua.app.domain.model.Resource
-import com.iua.app.domain.usecase.GetEventsUseCase
-import com.iua.app.domain.usecase.UpdateFavoriteStatusUseCase
+import com.iua.app.domain.usecase.home.GetEventsUseCase
+import com.iua.app.domain.usecase.home.UpdateFavoriteStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

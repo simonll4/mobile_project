@@ -1,17 +1,19 @@
 package com.iua.app.domain.model
 
-import com.iua.app.data.remote.dto.UserDTO
+
+import com.iua.app.data.remote.dto.UserRequestDTO
+import com.iua.app.data.remote.dto.UserResponseDTO
 
 data class UserModel(
-    val id: Long,
+    val id: String,
     val firstName: String,
     val lastName: String,
     val email: String,
     val password: String
 )
 
-// DTO -> Domain Model
-fun UserDTO.toUserModel(): UserModel {
+// Responde DTO -> Domain Model
+fun UserResponseDTO.toUserModel(): UserModel {
     return UserModel(
         id = this.id,
         firstName = this.firstName,
@@ -21,10 +23,9 @@ fun UserDTO.toUserModel(): UserModel {
     )
 }
 
-// Domain Model -> DTO
-fun UserModel.toUserDTO(): UserDTO {
-    return UserDTO(
-        id = this.id,
+// Domain Model -> Request DTO
+fun UserModel.toUserRequestDTO(): UserRequestDTO {
+    return UserRequestDTO(
         firstName = this.firstName,
         lastName = this.lastName,
         email = this.email,

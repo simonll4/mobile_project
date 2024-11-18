@@ -62,7 +62,7 @@ fun Register(modifier: Modifier, viewModel: RegisterViewModel, navController: Na
     } else if (isRegisterSuccessful) {
         LaunchedEffect(Unit) {
             navController.navigate(AppScreens.HomeScreen.routes) {
-                popUpTo(0) { inclusive = true } // Esto vacía toda la pila.
+                popUpTo(0) { inclusive = true }
             }
         }
     } else {

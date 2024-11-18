@@ -1,6 +1,5 @@
 package com.iua.app.domain.repository
 
-import com.iua.app.data.local.entity.EventEntity
 import com.iua.app.domain.model.EventModel
 
 interface EventsRepository {

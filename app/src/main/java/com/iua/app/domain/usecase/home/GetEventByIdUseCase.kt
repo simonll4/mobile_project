@@ -1,4 +1,4 @@
-package com.iua.app.domain.usecase
+package com.iua.app.domain.usecase.home
 
 import com.iua.app.domain.model.EventModel
 import com.iua.app.domain.model.Resource

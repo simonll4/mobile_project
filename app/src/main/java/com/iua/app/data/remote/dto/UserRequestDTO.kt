@@ -1,7 +1,6 @@
 package com.iua.app.data.remote.dto
 
-data class UserDTO(
-    val id: Long,
+data class UserRequestDTO(
     val firstName: String,
     val lastName: String,
     val email: String,

@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +21,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -37,15 +35,12 @@ import com.iua.app.ui.components.FieldTextComponent
 import com.iua.app.ui.components.FieldType
 import com.iua.app.ui.view_models.LoginViewModel
 import com.iua.app.ui.navigation.AppScreens
-import com.iua.app.ui.view_models.UserViewModel
-import kotlinx.coroutines.launch
 
 // todo cuando se hace el login mal mete un parpadeo, no deberia pasar. y mejorar tranisicon a home
 
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
-    userViewModel: UserViewModel = hiltViewModel(),
     navController: NavController
 ) {
     val isLoginSuccessful: Boolean by viewModel.isLoginSuccessful.observeAsState(initial = false)
@@ -73,7 +68,6 @@ fun LoginScreen(
             else -> {
                 LoginContent(
                     viewModel = viewModel,
-                    userViewModel = userViewModel,
                     navController = navController,
                     loginError = loginError
                 )
@@ -85,7 +79,6 @@ fun LoginScreen(
 @Composable
 fun LoginContent(
     viewModel: LoginViewModel,
-    userViewModel: UserViewModel,
     navController: NavController,
     loginError: String?
 ) {
@@ -124,7 +117,7 @@ fun LoginContent(
             text = stringResource(R.string.login_button),
             enabled = loginEnable
         ) {
-            viewModel.onButtonSelected(userViewModel)
+            viewModel.onButtonSelected()
         }
 
         // Aislar el mensaje de error

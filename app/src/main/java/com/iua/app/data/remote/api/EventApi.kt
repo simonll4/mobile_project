@@ -5,6 +5,7 @@ import retrofit2.http.GET
 
 interface EventApi {
 
+    // trae los eventos del servidor mockeado
     @GET("events")
     suspend fun getEvents(): List<EventDTO>
 

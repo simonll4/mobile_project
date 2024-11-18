@@ -73,6 +73,7 @@
     <string name="notifications_login_subtitle">Login to your account</string>
     <string name="notifications_promotional_title">Promotional</string>
     <string name="notifications_promotional_subtitle">Events with discounts</string>
+    <string name="update_success_message">Success</string>
 
 
 </resources>

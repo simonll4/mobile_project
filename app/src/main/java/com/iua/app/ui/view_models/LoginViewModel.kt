@@ -5,17 +5,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iua.app.domain.usecase.LoginUseCase
+import com.iua.app.domain.usecase.auth.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import android.content.Context
+import androidx.datastore.preferences.core.edit
+import com.iua.app.App.Companion.dataStore
+import com.iua.app.data.DataStoreKeys
+import dagger.hilt.android.qualifiers.ApplicationContext
+
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
@@ -36,17 +42,37 @@ class LoginViewModel @Inject constructor(
     private val _loginError = MutableLiveData<String?>()
     val loginError: LiveData<String?> = _loginError
 
+    private fun String.isValidEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+    private fun String.isValidPassword(): Boolean = this.length >= 6
+
+    private suspend fun saveUserToDataStore(
+        context: Context,
+        userId: String,
+        email: String,
+        firstName: String,
+        lastName: String
+    ) {
+        val userIdKey = DataStoreKeys.USER_ID
+        val userEmailKey = DataStoreKeys.USER_EMAIL
+        val userNameKey = DataStoreKeys.USER_NAME
+        val userLastNameKey = DataStoreKeys.USER_LAST_NAME
+
+        context.dataStore.edit { preferences ->
+            preferences[userIdKey] = userId
+            preferences[userEmailKey] = email
+            preferences[userNameKey] = firstName
+            preferences[userLastNameKey] = lastName
+        }
+    }
+
     fun onLoginChanged(email: String, password: String) {
         _email.value = email
         _password.value = password
         _loginEnable.value = email.isValidEmail() && password.isValidPassword()
     }
 
-    private fun String.isValidEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
-
-    private fun String.isValidPassword(): Boolean = this.length >= 6
-
-    fun onButtonSelected(userViewModel: UserViewModel) {
+    fun onButtonSelected() {
         val email = _email.value.orEmpty()
         val password = _password.value.orEmpty()
 
@@ -59,7 +85,14 @@ class LoginViewModel @Inject constructor(
                 val user = loginUseCase.execute(email, password)
                 if (user != null) {
                     withContext(Dispatchers.Main) {
-                        userViewModel.login(user) // Guardar usuario en el modelo global
+                        // Guardar usuario en DataStore
+                        saveUserToDataStore(
+                            context,
+                            user.id,
+                            user.email,
+                            user.firstName,
+                            user.lastName
+                        )
                         _isLoading.value = false
                         _isLoginSuccessful.value = true // Marcar como exitoso
                     }
@@ -75,119 +108,6 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
-
 }
 
 
-//@HiltViewModel
-//class LoginViewModel @Inject constructor(
-//    private val loginUseCase: LoginUseCase
-//) : ViewModel() {
-//
-//    private val _email = MutableLiveData<String>()
-//    val email: LiveData<String> = _email
-//
-//    private val _password = MutableLiveData<String>()
-//    val password: LiveData<String> = _password
-//
-//    private val _loginEnable = MutableLiveData<Boolean>()
-//    val loginEnable: LiveData<Boolean> = _loginEnable
-//
-//    private val _isLoading = MutableLiveData<Boolean>()
-//    val isLoading: LiveData<Boolean> = _isLoading
-//
-//    private val _loginError = MutableLiveData<String?>()
-//    val loginError: LiveData<String?> = _loginError
-//
-//    fun onLoginChanged(email: String, password: String) {
-//        _email.value = email
-//        _password.value = password
-//        _loginEnable.value = email.isValidEmail() && password.isValidPassword()
-//    }
-//
-//    private fun String.isValidEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
-//
-//    private fun String.isValidPassword(): Boolean = this.length >= 6
-//
-//    fun onButtonSelected(userViewModel: UserViewModel) {
-//        _isLoading.value = true
-//        _loginError.value = null // Limpiar errores previos
-//
-//        val email = email.value.orEmpty()
-//        val password = password.value.orEmpty()
-//
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                val user = loginUseCase.execute(email, password)
-//                if (user != null) {
-//                    withContext(Dispatchers.Main) {
-//                        userViewModel.login(user) // Guardar el usuario en UserViewModel
-//                        _isLoading.value = false
-//                    }
-//                } else {
-//                    throw Exception("Invalid credentials")
-//                }
-//            } catch (e: Exception) {
-//                withContext(Dispatchers.Main) {
-//                    _isLoading.value = false
-//                    _loginError.value = e.message
-//                }
-//            }
-//        }
-//    }
-//}
-
-
-//@HiltViewModel
-//class LoginViewModel @Inject constructor(
-//    private val loginUseCase: LoginUseCase
-//) : ViewModel() {
-//
-//    private val _email = MutableLiveData<String>()
-//    val email: LiveData<String> = _email
-//
-//    private val _password = MutableLiveData<String>()
-//    val password: LiveData<String> = _password
-//
-//    private val _loginEnable = MutableLiveData<Boolean>()
-//    val loginEnable: LiveData<Boolean> = _loginEnable
-//
-//    private val _isLoading = MutableLiveData<Boolean>()
-//    val isLoading: LiveData<Boolean> = _isLoading
-//
-//    private val _isLoginSuccessful = MutableLiveData<Boolean>()
-//    val isLoginSuccessful: LiveData<Boolean> = _isLoginSuccessful
-//
-//    fun onLoginChanged(email: String, password: String) {
-//        _email.value = email
-//        _password.value = password
-//        _loginEnable.value = email.isValidEmail() && password.isValidPassword()
-//    }
-//
-//    private fun String.isValidEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
-//
-//    private fun String.isValidPassword(): Boolean = this.length >= 6
-//
-////    suspend fun onButtonSelected() {
-////        _isLoading.value = true
-////        delay(2000) // Simulate a network request
-////        _isLoading.value = false
-////        _isLoginSuccessful.value = true
-////    }
-//
-//    fun onButtonSelected() {
-//        _isLoading.value = true
-//        val email = email.value ?: ""
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            loginUseCase.execute(email, password.value ?: "").collect {
-//                withContext(Dispatchers.Main) {
-//                    _isLoading.value = false
-//                    _isLoginSuccessful.value = it
-//                }
-//            }
-//        }
-//    }
-//
-//
-//}

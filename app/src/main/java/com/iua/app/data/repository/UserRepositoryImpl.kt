@@ -1,12 +1,10 @@
 package com.iua.app.data.repository
 
 import com.iua.app.data.remote.api.UserApi
-import com.iua.app.data.remote.dto.UserDTO
+import com.iua.app.data.remote.dto.UserRequestDTO
 import com.iua.app.domain.model.UserModel
 import com.iua.app.domain.model.toUserModel
 import com.iua.app.domain.repository.UserRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -20,13 +18,45 @@ class UserRepositoryImpl @Inject constructor(
 
             // Si hay resultados, toma el primero; de lo contrario, retorna null
             response.firstOrNull()?.toUserModel()
+
         } catch (e: Exception) {
-            null // Manejo básico de errores (puede extenderse con logs o excepciones personalizadas)
+            null // Manejo básico de errores
         }
     }
 
-    override suspend fun registerUser(userDTO: UserDTO): Boolean {
-        val response = userApi.registerUser(userDTO)
-        return response.isSuccessful
+    override suspend fun registerUser(userRequestDTO: UserRequestDTO): Boolean {
+        return try {
+            val response = userApi.registerUser(userRequestDTO)
+            response.isSuccessful
+        } catch (e: Exception) {
+            false // Manejo de errores
+        }
     }
+
+    override suspend fun updateUserField(userId: String, field: String, value: String): UserModel? {
+        return try {
+            val updateRequest = mapOf(field to value)
+            val response = userApi.updateUserField(userId, updateRequest)
+            if (response.isSuccessful) {
+                val updatedUser = response.body()?.toUserModel()
+                updatedUser
+            } else null
+        } catch (e: Exception) {
+            null // Manejo básico de errores
+        }
+    }
+
+    override suspend fun deleteUser(userId: String): Result<Unit> {
+        return try {
+            val response = userApi.deleteUser(userId)
+            if (response.isSuccessful) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Failed to delete user: ${response.code()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }

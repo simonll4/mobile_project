@@ -1,6 +1,5 @@
 package com.iua.app.di
 
-
 import com.iua.app.data.repository.EventsRepositoryImpl
 import com.iua.app.data.repository.UserRepositoryImpl
 import com.iua.app.domain.repository.EventsRepository

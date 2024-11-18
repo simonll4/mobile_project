@@ -18,6 +18,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,15 +29,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.iua.app.R
 import com.iua.app.ui.components.TopAppBarComponent
 import com.iua.app.ui.navigation.AppScreens
+import com.iua.app.ui.view_models.ThemeViewModel
 
 @Composable
-fun AppCustomizationScreen(navController: NavHostController) {
-    var isChecked by remember { mutableStateOf(true) }
+fun AppCustomizationScreen(
+    themeViewModel: ThemeViewModel = hiltViewModel(),
+    navController: NavHostController
+) {
+    val isDarkMode by themeViewModel.isDarkMode.collectAsState(initial = false)
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -58,9 +65,13 @@ fun AppCustomizationScreen(navController: NavHostController) {
         ) {
             SettingsOptionWithSwitch(
                 label = stringResource(R.string.configuration_dark_mode),
-                isChecked = isChecked,
-                onCheckedChange = { isChecked = it }
+                isChecked = isDarkMode,
+                onCheckedChange = {
+                    println("Dark mode toggled: $it") // Log para confirmar interacción
+                    themeViewModel.toggleDarkMode(it)
+                }
             )
+
             HorizontalDivider(thickness = 0.5.dp, color = Color.Gray)
             SettingsOptionWithArrow(
                 label = stringResource(R.string.configuration_notifications),
