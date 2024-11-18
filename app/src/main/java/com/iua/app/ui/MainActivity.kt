@@ -10,9 +10,15 @@ import androidx.compose.ui.Modifier
 import com.iua.app.ui.navigation.AppNavigation
 import dagger.hilt.android.AndroidEntryPoint
 import com.iua.app.ui.theme.MyApplicationTheme
+import com.iua.app.work.WorkManagerInitializer
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+
+    @Inject
+    lateinit var workManagerInitializer: WorkManagerInitializer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,10 @@ class MainActivity : ComponentActivity() {
                     AppNavigation()
                 }
             }
+
+            workManagerInitializer.scheduleImmediateCheck()
         }
     }
+
+
 }

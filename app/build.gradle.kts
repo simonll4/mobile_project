@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.iua.app"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.iua.app"
@@ -65,7 +65,16 @@ android {
 
 dependencies {
 
+    implementation ("androidx.work:work-runtime-ktx:2.8.1")
+
+   // implementation "androidx.work:work-runtime-ktx:2.8.1"
+
+    implementation ("androidx.hilt:hilt-work:1.0.0")
+    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+
+
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.hilt.work)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)

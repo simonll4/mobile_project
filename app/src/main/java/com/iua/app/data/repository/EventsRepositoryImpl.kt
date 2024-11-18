@@ -9,6 +9,7 @@ import com.iua.app.domain.model.toEventsModel
 import com.iua.app.domain.repository.EventsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.Calendar
 import javax.inject.Inject
 
 class EventsRepositoryImpl @Inject constructor(
@@ -67,5 +68,23 @@ class EventsRepositoryImpl @Inject constructor(
     override suspend fun getEventById(id: Long): EventModel? {
         return eventDAO.getEventById(id)?.toEventsModel()
     }
+
+    override suspend fun getFavoriteEventsForTomorrow(): List<EventModel> {
+        // Calcular la fecha de mañana en Date
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, 1)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val tomorrowDate = calendar.time // Obtener la fecha de mañana como un objeto Date
+
+        // Obtener los eventos favoritos de mañana desde el DAO
+        val favoriteEvents = eventDAO.getFavoriteEventsForTomorrow(tomorrowDate)
+
+        // Convertir las entidades a modelos y retornarlas
+        return favoriteEvents.map { it.toEventsModel() }
+    }
+
 
 }

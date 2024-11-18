@@ -24,6 +24,7 @@ materialIconsExtended = "1.7.0"
 retrofit = "2.9.0"
 runtimeLivedata = "1.7.0"
 coilCompose = "1.4.0"
+hiltWork = "1.2.0"
 
 
 [libraries]
@@ -63,6 +64,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltWork" }
 
 
 [plugins]

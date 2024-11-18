@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.iua.app.data.local.entity.EventEntity
+import java.util.Date
 
 @Dao
 interface EventDAO {
@@ -28,6 +29,25 @@ interface EventDAO {
     // cambia el estado de favorito de un evento
     @Query("UPDATE events SET is_favorite = :isFavorite WHERE id = :id")
     suspend fun updateFavoriteStatus(id: Long, isFavorite: Boolean): Int
+
+//    @Query(
+//        """
+//        SELECT * FROM events
+//        WHERE is_favorite = 1
+//        AND strftime('%Y-%m-%d', date) = strftime('%Y-%m-%d', :tomorrowDate)
+//    """
+//    )
+//    suspend fun getFavoriteEventsForTomorrow(tomorrowDate: Date): List<EventEntity>
+
+
+    @Query("""
+    SELECT * FROM events 
+    WHERE is_favorite = 1 
+    AND strftime('%Y-%m-%d', date / 1000, 'unixepoch') = strftime('%Y-%m-%d', :tomorrowDate / 1000, 'unixepoch')
+""")
+    suspend fun getFavoriteEventsForTomorrow(tomorrowDate: Date): List<EventEntity>
+
+
 
 }
 

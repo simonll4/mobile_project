@@ -11,4 +11,6 @@ interface EventsRepository {
     suspend fun updateFavoriteStatus(id: Long, isFavorite: Boolean): Boolean
 
     suspend fun getEventById(id: Long): EventModel?
+
+    suspend fun getFavoriteEventsForTomorrow(): List<EventModel>
 }

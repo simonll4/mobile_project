@@ -1,12 +1,12 @@
 {
   "users": [
-  {
-    "id": "93f7",
-    "email": "simon@mail.com",
-    "firstName": "simon",
-    "lastName": "Llamosas",
-    "password": "12345678"
-}
+    {
+      "id": "93f7",
+      "email": "simon@mail.com",
+      "firstName": "Simon",
+      "lastName": "Llamosas",
+      "password": "12345678"
+    }
   ],
   "events": [
     {
@@ -25,7 +25,7 @@
       "description": "Explore the latest trends and technologies that will define the future.",
       "image": "https://images.unsplash.com/photo-1518770660439-4636190af475",
       "location": "Cordoba",
-      "date": "2025-05-15T19:00:00"
+      "date": "2024-11-19T09:35:26"
     },
     {
       "id": "3",
