@@ -16,7 +16,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-
     @Inject
     lateinit var workManagerInitializer: WorkManagerInitializer
 
@@ -31,10 +30,8 @@ class MainActivity : ComponentActivity() {
                     AppNavigation()
                 }
             }
-
             workManagerInitializer.scheduleImmediateCheck()
         }
     }
-
 
 }

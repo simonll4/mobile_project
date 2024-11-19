@@ -1,4 +1,4 @@
-package com.iua.app.di
+package com.iua.app.di.data
 
 import com.iua.app.data.repository.EventsRepositoryImpl
 import com.iua.app.data.repository.UserRepositoryImpl

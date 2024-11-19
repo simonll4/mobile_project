@@ -86,5 +86,4 @@ class EventsRepositoryImpl @Inject constructor(
         return favoriteEvents.map { it.toEventsModel() }
     }
 
-
 }

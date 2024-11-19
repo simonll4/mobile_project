@@ -1,4 +1,4 @@
-package com.iua.app.di
+package com.iua.app.di.data
 
 import com.iua.app.data.remote.Constants
 import com.iua.app.data.remote.api.EventApi

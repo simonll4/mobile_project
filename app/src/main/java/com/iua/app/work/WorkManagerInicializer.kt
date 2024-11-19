@@ -2,7 +2,7 @@ package com.iua.app.work
 
 import android.content.Context
 import androidx.work.*
-import com.iua.app.ui.work.CheckFavoritesWorker
+import com.iua.app.ui.work.FavoriteEventReminderWorker
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -11,8 +11,9 @@ class WorkManagerInitializer @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 
+    // todo acomodar los schedulers para notificar
     fun scheduleImmediateCheck() {
-        val workRequest = OneTimeWorkRequestBuilder<CheckFavoritesWorker>()
+        val workRequest = OneTimeWorkRequestBuilder<FavoriteEventReminderWorker>()
             .setInitialDelay(10, TimeUnit.SECONDS)
             .setConstraints(
                 Constraints.Builder()
@@ -21,9 +22,8 @@ class WorkManagerInitializer @Inject constructor(
                     .build()
             )
             .build()
-
         WorkManager.getInstance(context).enqueueUniqueWork(
-            "CheckFavoritesWorker",
+            "FavoriteEventReminderWorker",
             ExistingWorkPolicy.REPLACE,
             workRequest
         )

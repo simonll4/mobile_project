@@ -1,4 +1,4 @@
-package com.iua.app.di
+package com.iua.app.di.data
 
 import android.content.Context
 import androidx.room.Room
