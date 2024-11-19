@@ -6,7 +6,7 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.iua.app.domain.repository.EventsRepository
 import com.iua.app.notification.NotificationHandler
-import com.iua.app.ui.work.FavoriteEventReminderWorker
+import com.iua.app.scheduler.work.FavoriteEventReminderWorker
 import javax.inject.Inject
 import javax.inject.Singleton
 

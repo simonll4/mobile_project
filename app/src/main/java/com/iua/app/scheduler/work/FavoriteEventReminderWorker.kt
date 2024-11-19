@@ -1,4 +1,4 @@
-package com.iua.app.ui.work
+package com.iua.app.scheduler.work
 
 import android.content.Context
 import android.util.Log
@@ -7,6 +7,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.iua.app.domain.repository.EventsRepository
 import com.iua.app.notification.NotificationHandler
+import com.iua.app.ui.screens.home.toFormattedTime
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
@@ -28,6 +29,7 @@ class FavoriteEventReminderWorker @AssistedInject constructor(
         return try {
             val eventsForTomorrow = eventsRepository.getFavoriteEventsForTomorrow()
 
+            Log.d("EventReminderWorker", "Events for tomorrow: $eventsForTomorrow")
             if (eventsForTomorrow.isNotEmpty()) {
                 notificationHandler.createNotificationChannel(
                     CHANNEL_ID,
@@ -35,17 +37,24 @@ class FavoriteEventReminderWorker @AssistedInject constructor(
                     CHANNEL_DESCRIPTION
                 )
 
-                notificationHandler.sendNotification(
-                    CHANNEL_ID,
-                    "Eventos favoritos",
-                    "Tienes ${eventsForTomorrow.size} evento(s) favorito(s) mañana.",
-                    1
-                )
+                // Generar una notificación por cada evento
+                eventsForTomorrow.forEachIndexed { index, event ->
+                    val title = "Evento mañana: ${event.title}"
+                    val content = "Hora: ${event.date.toFormattedTime()} en ${event.location}"
+
+                    notificationHandler.sendEventNotification(
+                        CHANNEL_ID,
+                        event.id,
+                        title,
+                        content,
+                        index + 1 // Usar índice único para cada notificación
+                    )
+                }
             }
 
             Result.success()
         } catch (e: Exception) {
-            Log.e("CheckFavoritesWorker", "Error: ${e.message}", e)
+            Log.e("EventReminderWorker", "Error: ${e.message}", e)
             Result.failure()
         }
     }

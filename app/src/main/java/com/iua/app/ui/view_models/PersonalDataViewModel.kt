@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iua.app.App.Companion.dataStore
-import com.iua.app.data.DataStoreKeys
+import com.iua.app.data.datastore.DataStoreKeys
+import com.iua.app.data.datastore.dataStore
 import com.iua.app.domain.model.UserModel
 import com.iua.app.domain.usecase.profile.DeleteUserUseCase
 import com.iua.app.domain.usecase.profile.UpdateUserFieldUseCase

@@ -6,8 +6,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iua.app.App.Companion.dataStore
-import com.iua.app.data.DataStoreKeys
+import com.iua.app.data.datastore.DataStoreKeys
+import com.iua.app.data.datastore.dataStore
 import com.iua.app.domain.model.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -64,8 +64,10 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    // llamada desde el boton logout
     suspend fun clearUserDataFromDataStore() {
         context.dataStore.edit { preferences ->
+            preferences[DataStoreKeys.IS_USER_LOGGED_IN] = false // Marca como deslogueado
             preferences.remove(DataStoreKeys.USER_ID)
             preferences.remove(DataStoreKeys.USER_EMAIL)
             preferences.remove(DataStoreKeys.USER_NAME)

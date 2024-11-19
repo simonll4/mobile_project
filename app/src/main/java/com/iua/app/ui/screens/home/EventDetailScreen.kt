@@ -62,8 +62,17 @@ fun EventDetailScreen(
 
     val event by viewModel.event.collectAsState()
 
+//    LaunchedEffect(eventId) {
+//        viewModel.loadEvent(eventId.toLong())
+//    }
+
     LaunchedEffect(eventId) {
-        viewModel.loadEvent(eventId.toLong())
+        val eventIdLong = eventId.toLongOrNull() ?: 0L
+        if (eventIdLong != 0L) {
+            viewModel.loadEvent(eventIdLong)
+        } else {
+            navController.popBackStack()
+        }
     }
 
     event?.let {

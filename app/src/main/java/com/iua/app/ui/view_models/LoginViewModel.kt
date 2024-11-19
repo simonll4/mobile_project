@@ -13,8 +13,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import android.content.Context
 import androidx.datastore.preferences.core.edit
-import com.iua.app.App.Companion.dataStore
-import com.iua.app.data.DataStoreKeys
+import com.iua.app.data.datastore.DataStoreKeys
+import com.iua.app.data.datastore.dataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 
@@ -59,6 +59,7 @@ class LoginViewModel @Inject constructor(
         val userLastNameKey = DataStoreKeys.USER_LAST_NAME
 
         context.dataStore.edit { preferences ->
+            preferences[DataStoreKeys.IS_USER_LOGGED_IN] = true
             preferences[userIdKey] = userId
             preferences[userEmailKey] = email
             preferences[userNameKey] = firstName

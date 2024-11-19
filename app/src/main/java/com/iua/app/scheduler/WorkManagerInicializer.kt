@@ -1,8 +1,8 @@
-package com.iua.app.work
+package com.iua.app.scheduler
 
 import android.content.Context
 import androidx.work.*
-import com.iua.app.ui.work.FavoriteEventReminderWorker
+import com.iua.app.scheduler.work.FavoriteEventReminderWorker
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -12,6 +12,7 @@ class WorkManagerInitializer @Inject constructor(
 ) {
 
     // todo acomodar los schedulers para notificar
+
     fun scheduleImmediateCheck() {
         val workRequest = OneTimeWorkRequestBuilder<FavoriteEventReminderWorker>()
             .setInitialDelay(10, TimeUnit.SECONDS)

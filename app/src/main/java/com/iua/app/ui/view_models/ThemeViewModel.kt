@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.iua.app.App.Companion.dataStore
-import com.iua.app.data.DataStoreKeys
+import com.iua.app.data.datastore.DataStoreKeys
+import com.iua.app.data.datastore.dataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

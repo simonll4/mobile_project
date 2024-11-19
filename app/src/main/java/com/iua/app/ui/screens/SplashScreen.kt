@@ -13,23 +13,57 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.iua.app.R
 import com.iua.app.ui.navigation.AppScreens
 import kotlinx.coroutines.delay
 
+
+//@Composable
+//fun SplashScreen(navController: NavController) {
+//    LaunchedEffect(key1 = true) {
+//        delay(3000)
+//        navController.popBackStack() // con esto sacamos la pantalla de splash de la pila para no poder volver
+//        navController.navigate(AppScreens.LoginScreen.routes)
+//    }
+//    Splash()
+//}
+
 @Composable
-fun SplashScreen(navController: NavController) {
-    LaunchedEffect(key1 = true) {
-        delay(3000)
-        navController.popBackStack() // con esto sacamos la pantalla de splash de la pila para no poder volver
-        navController.navigate(AppScreens.LoginScreen.routes)
+fun SplashScreen(navController: NavHostController, isUserLoggedIn: Boolean, startEventId: String?) {
+    LaunchedEffect(Unit) {
+        // Simula el tiempo de carga
+        delay(2000L)
+
+        // Decide la ruta a la que se navega
+        when {
+            startEventId != null && isUserLoggedIn -> {
+                // Usuario logueado y llegó desde una notificación
+                navController.navigate("${AppScreens.EventDetailScreen.routes}/$startEventId") {
+                    popUpTo(AppScreens.SplashScreen.routes) { inclusive = true }
+                }
+            }
+
+            isUserLoggedIn -> {
+                // Usuario logueado y sin notificación
+                navController.navigate(AppScreens.HomeScreen.routes) {
+                    popUpTo(AppScreens.SplashScreen.routes) { inclusive = true }
+                }
+            }
+
+            else -> {
+                // Usuario no logueado
+                navController.navigate(AppScreens.LoginScreen.routes) {
+                    popUpTo(AppScreens.SplashScreen.routes) { inclusive = true }
+                }
+            }
+        }
     }
+
     Splash()
 }
+
 
 @Composable
 fun Splash() {
