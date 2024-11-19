@@ -7,9 +7,7 @@ object DataStoreKeys {
 
     // Preferences
     val DARK_MODE = booleanPreferencesKey("dark_mode")
-
     val EVENT_ID = stringPreferencesKey("event_id")
-
 
     // User
     val IS_USER_LOGGED_IN = booleanPreferencesKey("is_user_logged_in")
@@ -17,5 +15,9 @@ object DataStoreKeys {
     val USER_EMAIL = stringPreferencesKey("user_email")
     val USER_NAME = stringPreferencesKey("user_name")
     val USER_LAST_NAME = stringPreferencesKey("user_last_name")
+
+    //works
+    val IS_WORK_SCHEDULED = booleanPreferencesKey("is_work_scheduled")
+    val IS_IMMEDIATE_WORK_SCHEDULED = booleanPreferencesKey("is_immediate_work_scheduled")
 
 }

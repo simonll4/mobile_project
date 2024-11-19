@@ -14,8 +14,9 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">App</string>
+<resources>]
+    <!-- App Name -->
+    <string name="app_name">CEvents</string>
 
     <!-- Splash Screen -->
     <string name="splash_title">Cultural Events</string>
@@ -28,8 +29,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat your Password</string>
-    <string name="terms_and_conditions">By continuing you accept our Privacy Policy and Terms of Use</string>
-
+    <string name="terms_and_conditions">By continuing you accept our Privacy Policy and Terms of Use</string>=
     <string name="register_button">Register</string>
 
     <!-- Login Screen -->

@@ -25,3 +25,27 @@ suspend fun getEventId(context: Context): String {
     val preferences = context.dataStore.data.first()
     return (preferences[DataStoreKeys.EVENT_ID] ?: "")
 }
+
+suspend fun setImmediateWorkScheduled(context: Context, isScheduled: Boolean) {
+    context.dataStore.edit { preferences ->
+        preferences[DataStoreKeys.IS_IMMEDIATE_WORK_SCHEDULED] = isScheduled
+    }
+}
+
+suspend fun isImmediateWorkScheduled(context: Context): Boolean {
+    val preferences = context.dataStore.data.first()
+    return preferences[DataStoreKeys.IS_IMMEDIATE_WORK_SCHEDULED] ?: false
+}
+
+
+suspend fun setWorkScheduled(context: Context, isScheduled: Boolean) {
+    context.dataStore.edit { preferences ->
+        preferences[DataStoreKeys.IS_WORK_SCHEDULED] = isScheduled
+    }
+}
+
+suspend fun isWorkScheduled(context: Context): Boolean {
+    val preferences = context.dataStore.data.first()
+    return preferences[DataStoreKeys.IS_WORK_SCHEDULED] ?: false
+}
+

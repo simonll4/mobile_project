@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources>
-    <style name="Theme.App" parent="android:Theme.Material.Light.NoActionBar" />
+<!--<resources>-->
+<!--    <style name="Theme.App" parent="android:Theme.Material.Light.NoActionBar" />-->
 
+<!--</resources>-->
+
+<resources>
+    <style name="Theme.App" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Fondo transparente para eliminar la pantalla blanca -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

@@ -15,7 +15,7 @@ import com.iua.app.ui.screens.profile.ProfileScreen
 
 
 @Composable
-fun AppNavigation(startEventId: String?,isUserLoggedIn: Boolean,) {
+fun AppNavigation(startEventId: String?, isUserLoggedIn: Boolean) {
     val navController = rememberNavController()
 
     val startDestination = when {
@@ -60,7 +60,6 @@ fun AppNavigation(startEventId: String?,isUserLoggedIn: Boolean,) {
         }
     }
 }
-
 
 
 //@Composable

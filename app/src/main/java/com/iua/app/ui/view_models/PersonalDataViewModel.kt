@@ -126,6 +126,10 @@ class PersonalDataViewModel @Inject constructor(
             } else {
                 DeleteAccountState.Error(result.exceptionOrNull()?.message ?: "Unknown error")
             }
+
+            context.dataStore.edit { preferences ->
+                preferences.clear()
+            }
         }
     }
 

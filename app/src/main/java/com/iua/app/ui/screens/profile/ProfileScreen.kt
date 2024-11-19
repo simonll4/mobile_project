@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -210,12 +211,15 @@ fun ProfileItem(icon: ImageVector, title: String, description: String, onClick: 
     }
 }
 
+
 @Composable
 fun ButtonSection(
     modifier: Modifier = Modifier,
     profileViewModel: ProfileViewModel,
     navController: NavHostController
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -223,7 +227,9 @@ fun ButtonSection(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = { /* TODO Handle "Necesito ayuda" click */ },
+            onClick = {
+                profileViewModel.sendHelpEmail(context)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
@@ -267,3 +273,60 @@ fun ButtonSection(
         }
     }
 }
+//@Composable
+//fun ButtonSection(
+//    modifier: Modifier = Modifier,
+//    profileViewModel: ProfileViewModel,
+//    navController: NavHostController
+//) {
+//    Column(
+//        modifier = modifier
+//            .fillMaxWidth()
+//            .padding(16.dp),
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        Button(
+//            onClick = { /* TODO Handle "Necesito ayuda" click */ },
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(bottom = 16.dp),
+//            colors = ButtonDefaults.buttonColors(
+//                containerColor = MaterialTheme.colorScheme.surface,
+//                contentColor = MaterialTheme.colorScheme.onBackground
+//            ),
+//            shape = RoundedCornerShape(50)
+//        ) {
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Icon(
+//                    imageVector = Icons.Default.Headset,
+//                    contentDescription = "Help icon",
+//                    tint = MaterialTheme.colorScheme.onBackground
+//                )
+//                Spacer(modifier = Modifier.width(8.dp))
+//                Text(
+//                    text = stringResource(R.string.help_button),
+//                    color = MaterialTheme.colorScheme.onBackground,
+//                    style = MaterialTheme.typography.titleMedium
+//                )
+//            }
+//        }
+//        TextButton(
+//            onClick = {
+//                profileViewModel.viewModelScope.launch {
+//                    profileViewModel.clearUserDataFromDataStore()
+//                    navController.navigate(AppScreens.LoginScreen.routes) {
+//                        popUpTo(AppScreens.ProfileScreen.routes) { inclusive = true }
+//                    }
+//                }
+//            }, modifier = Modifier.fillMaxWidth()
+//        ) {
+//            Text(
+//                text = stringResource(R.string.logout_button),
+//                color = MaterialTheme.colorScheme.primary,
+//                style = MaterialTheme.typography.titleLarge,
+//            )
+//        }
+//    }
+//}

@@ -41,7 +41,6 @@ class ThemeViewModel @Inject constructor(
             getApplication<Application>().dataStore.edit { preferences ->
                 preferences[DataStoreKeys.DARK_MODE] = enabled
             }
-            println("Dark mode updated: $enabled") // Log para verificar
         }
     }
 

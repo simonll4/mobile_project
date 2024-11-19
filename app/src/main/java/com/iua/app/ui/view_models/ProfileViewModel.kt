@@ -1,7 +1,10 @@
 package com.iua.app.ui.view_models
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.lifecycle.ViewModel
@@ -64,10 +67,31 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun sendHelpEmail(context: Context) {
+        val emailIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "message/rfc822" // Filtra aplicaciones de correo electrónico
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("simon.llamosas44@gmail.com"))
+            putExtra(Intent.EXTRA_SUBJECT, "Consulta de Ayuda")
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Por favor, describe tu problema aquí."
+            ) // Opcional, cuerpo del mensaje
+        }
+        try {
+            context.startActivity(
+                Intent.createChooser(emailIntent, "Selecciona una aplicación de correo")
+            )
+        } catch (e: Exception) {
+            Toast.makeText(context, "No hay aplicaciones de correo instaladas", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
     // llamada desde el boton logout
     suspend fun clearUserDataFromDataStore() {
         context.dataStore.edit { preferences ->
             preferences[DataStoreKeys.IS_USER_LOGGED_IN] = false // Marca como deslogueado
+            preferences.remove(DataStoreKeys.IS_IMMEDIATE_WORK_SCHEDULED)
             preferences.remove(DataStoreKeys.USER_ID)
             preferences.remove(DataStoreKeys.USER_EMAIL)
             preferences.remove(DataStoreKeys.USER_NAME)

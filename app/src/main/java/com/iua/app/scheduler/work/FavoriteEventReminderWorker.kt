@@ -1,7 +1,10 @@
 package com.iua.app.scheduler.work
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -27,6 +30,19 @@ class FavoriteEventReminderWorker @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         return try {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val hasPermission = ContextCompat.checkSelfPermission(
+                    context,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+
+                if (!hasPermission) {
+                    Log.e("EventReminderWorker", "Permiso de notificaciones no otorgado")
+                    return Result.failure() // O maneja esto de otra manera
+                }
+            }
+
             val eventsForTomorrow = eventsRepository.getFavoriteEventsForTomorrow()
 
             Log.d("EventReminderWorker", "Events for tomorrow: $eventsForTomorrow")
@@ -47,7 +63,7 @@ class FavoriteEventReminderWorker @AssistedInject constructor(
                         event.id,
                         title,
                         content,
-                        index + 1 // Usar índice único para cada notificación
+                        event.id.toInt()
                     )
                 }
             }

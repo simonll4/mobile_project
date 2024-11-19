@@ -33,7 +33,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(navController: NavHostController, isUserLoggedIn: Boolean, startEventId: String?) {
     LaunchedEffect(Unit) {
-        // Simula el tiempo de carga
+
         delay(2000L)
 
         // Decide la ruta a la que se navega
