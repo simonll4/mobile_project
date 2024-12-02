@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
         // Verifica y solicita el permiso de notificaciones
         checkAndRequestNotificationPermission()
 
-        // Configura el WorkManager si es necesario
+        // Configura el WorkManager
         workManagerConfigurator.setupPeriodicWorkIfNeeded()
         // Ejecuta un trabajo inmediato (pruebas)
         workManagerConfigurator.scheduleImmediateCheck()
@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
             setEventId(this@MainActivity, eventId.toString())
 
             setContent {
-                MyApplicationTheme() {
+                MyApplicationTheme {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background

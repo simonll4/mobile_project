@@ -16,17 +16,17 @@ class RegisterUseCase @Inject constructor(
         lastName: String,
         email: String,
         password: String
-    ): Flow<Resource<Boolean>> = flow {
+    ): Flow<Resource<UserModel>> = flow {
         try {
             emit(Resource.Loading())
 
-            // Convertir UserModel a UserDTO
-            val userModel = UserModel("",firstName, lastName, email, password)
+            // Crear UserModel y convertirlo a UserRequestDTO
+            val userModel = UserModel("", firstName, lastName, email, password)
             val userDTO = userModel.toUserRequestDTO()
 
-            val response = userRepository.registerUser(userDTO)
-            if (response) {
-                emit(Resource.Success(true))
+            val registeredUser = userRepository.registerUser(userDTO)
+            if (registeredUser != null) {
+                emit(Resource.Success(registeredUser))
             } else {
                 emit(Resource.Error("Registration failed"))
             }
@@ -35,3 +35,32 @@ class RegisterUseCase @Inject constructor(
         }
     }
 }
+
+
+//class RegisterUseCase @Inject constructor(
+//    private val userRepository: UserRepository
+//) {
+//    operator fun invoke(
+//        firstName: String,
+//        lastName: String,
+//        email: String,
+//        password: String
+//    ): Flow<Resource<Boolean>> = flow {
+//        try {
+//            emit(Resource.Loading())
+//
+//            // Convertir UserModel a UserDTO
+//            val userModel = UserModel("",firstName, lastName, email, password)
+//            val userDTO = userModel.toUserRequestDTO()
+//
+//            val response = userRepository.registerUser(userDTO)
+//            if (response) {
+//                emit(Resource.Success(true))
+//            } else {
+//                emit(Resource.Error("Registration failed"))
+//            }
+//        } catch (e: Exception) {
+//            emit(Resource.Error(e.message ?: "An error occurred"))
+//        }
+//    }
+//}

@@ -44,7 +44,6 @@ class ThemeViewModel @Inject constructor(
         }
     }
 
-
     private fun updateDarkMode(enabled: Boolean) {
         _isDarkMode.value = enabled
         viewModelScope.launch {

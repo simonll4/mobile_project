@@ -1,6 +1,6 @@
 [versions]
 accompanistSwiperefresh = "0.18.0"
-androidGradlePlugin = "8.7.2"
+androidGradlePlugin = "8.7.3"
 androidxCore = "1.13.1"
 androidxLifecycle = "2.8.4"
 androidxActivity = "1.9.1"

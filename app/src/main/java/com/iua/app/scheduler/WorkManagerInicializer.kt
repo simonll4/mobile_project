@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
 class WorkManagerInitializer @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
@@ -29,7 +28,7 @@ class WorkManagerInitializer @Inject constructor(
     }
 
     /**
-     * Configura un PeriodicWorkRequest para que se ejecute cada 15 minutos si no está configurado.
+     * Configura un PeriodicWorkRequest para que se ejecute periodicamente.
      */
     fun setupPeriodicWorkIfNeeded() {
         val workManager = WorkManager.getInstance(context)
@@ -53,50 +52,53 @@ class WorkManagerInitializer @Inject constructor(
     }
 
     /**
-     * Configura un OneTimeWorkRequest para que se ejecute inmediatamente y una sola vez (con un pequeño retraso inicial).
+     * Configura un OneTimeWorkRequest para que se ejecute
+     * inmediatamente una sola vez (con un pequeño retraso inicial).
      */
-//    fun scheduleImmediateCheck() {
-//        val workManager = WorkManager.getInstance(context)
-//        CoroutineScope(Dispatchers.IO).launch {
-//            // Verificar en DataStore si el trabajo inmediato ya está programado
-//            val isScheduled = isImmediateWorkScheduled(context)
-//            if (!isScheduled) {
-//                val workRequest =
-//                    OneTimeWorkRequestBuilder<FavoriteEventReminderWorker>().setInitialDelay(
-//                        10,
-//                        TimeUnit.SECONDS
-//                    )
-//                        .setConstraints(
-//                            Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
-//                                .setRequiresBatteryNotLow(true).build()
-//                        ).build()
-//                workManager.enqueueUniqueWork(
-//                    UNIQUE_IMMEDIATE_WORK_NAME,
-//                    ExistingWorkPolicy.KEEP, // No reemplazar si ya existe
-//                    workRequest
-//                )
-//                // Marcar el trabajo como programado en DataStore
-//                setImmediateWorkScheduled(context, true)
-//            }
-//        }
-//    }
-
     fun scheduleImmediateCheck() {
-        val workRequest = OneTimeWorkRequestBuilder<FavoriteEventReminderWorker>()
-            .setInitialDelay(10, TimeUnit.SECONDS)
-            .setConstraints(
-                Constraints.Builder()
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .setRequiresBatteryNotLow(true)
+        val workManager = WorkManager.getInstance(context)
+        CoroutineScope(Dispatchers.IO).launch {
+            // Verificar en DataStore si el trabajo inmediato ya está programado
+            if (!isImmediateWorkScheduled(context)) {
+                val workRequest = OneTimeWorkRequestBuilder<FavoriteEventReminderWorker>()
+                    .setInitialDelay(300, TimeUnit.SECONDS)
+                    .setConstraints(
+                        Constraints.Builder()
+                            .setRequiredNetworkType(NetworkType.CONNECTED)
+                            .setRequiresBatteryNotLow(true)
+                            .build()
+                    )
                     .build()
-            )
-            .build()
-        WorkManager.getInstance(context).enqueueUniqueWork(
-            UNIQUE_IMMEDIATE_WORK_NAME,
-            ExistingWorkPolicy.KEEP,
-            workRequest
-        )
+
+                // Programar el trabajo único
+                workManager.enqueueUniqueWork(
+                    UNIQUE_IMMEDIATE_WORK_NAME,
+                    ExistingWorkPolicy.KEEP, // No reemplazar si ya existe
+                    workRequest
+                )
+
+                // Marcar el trabajo como programado en DataStore
+                setImmediateWorkScheduled(context, true)
+            }
+        }
     }
+
+//    fun scheduleImmediateCheck() {
+//        val workRequest = OneTimeWorkRequestBuilder<FavoriteEventReminderWorker>()
+//            .setInitialDelay(10, TimeUnit.SECONDS)
+//            .setConstraints(
+//                Constraints.Builder()
+//                    .setRequiredNetworkType(NetworkType.CONNECTED)
+//                    .setRequiresBatteryNotLow(true)
+//                    .build()
+//            )
+//            .build()
+//        WorkManager.getInstance(context).enqueueUniqueWork(
+//            UNIQUE_IMMEDIATE_WORK_NAME,
+//            ExistingWorkPolicy.KEEP,
+//            workRequest
+//        )
+//    }
 }
 
 

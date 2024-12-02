@@ -67,7 +67,6 @@ import com.iua.app.ui.navigation.AppScreens
 import com.iua.app.ui.navigation.BottomBarNavigation
 import com.iua.app.ui.view_models.HomeViewModel
 
-
 @Composable
 fun HomeScreen(navController: NavHostController) {
     val context = LocalContext.current
@@ -104,7 +103,6 @@ fun HomeScreen(navController: NavHostController) {
     }
 }
 
-
 @Composable
 fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
@@ -134,7 +132,7 @@ fun HomeScreenContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopBar(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeTopBar(navController: NavHostController) {
 
     CenterAlignedTopAppBar(
         title = {

@@ -24,14 +24,27 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun registerUser(userRequestDTO: UserRequestDTO): Boolean {
+    override suspend fun registerUser(userRequestDTO: UserRequestDTO): UserModel? {
         return try {
             val response = userApi.registerUser(userRequestDTO)
-            response.isSuccessful
+            if (response.isSuccessful) {
+                response.body()?.toUserModel() // Convierte UserResponseDTO a UserModel
+            } else {
+                null
+            }
         } catch (e: Exception) {
-            false // Manejo de errores
+            null
         }
     }
+
+//    override suspend fun registerUser(userRequestDTO: UserRequestDTO): Boolean {
+//        return try {
+//            val response = userApi.registerUser(userRequestDTO)
+//            response.isSuccessful
+//        } catch (e: Exception) {
+//            false // Manejo de errores
+//        }
+//    }
 
     override suspend fun updateUserField(userId: String, field: String, value: String): UserModel? {
         return try {

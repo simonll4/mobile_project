@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.iua.app.ui.screens.*
 import com.iua.app.ui.screens.auth.LoginScreen
+import com.iua.app.ui.screens.auth.RegisterScreen
 import com.iua.app.ui.screens.home.EventDetailScreen
 import com.iua.app.ui.screens.home.HomeScreen
 import com.iua.app.ui.screens.profile.AppCustomizationScreen
@@ -38,6 +39,9 @@ fun AppNavigation(startEventId: String?, isUserLoggedIn: Boolean) {
         }
         composable(AppScreens.LoginScreen.routes) {
             LoginScreen(navController = navController)
+        }
+        composable(AppScreens.RegisterScreen.routes) {
+            RegisterScreen(navController = navController)
         }
         composable(AppScreens.HomeScreen.routes) {
             HomeScreen(navController = navController)

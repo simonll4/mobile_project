@@ -20,10 +20,16 @@ interface UserApi {
     ): List<UserResponseDTO>
 
     // simula registro
+//    @POST("/users")
+//    suspend fun registerUser(
+//        @Body user: UserRequestDTO
+//    ): Response<Unit>
+    // Simula registro
     @POST("/users")
     suspend fun registerUser(
         @Body user: UserRequestDTO
-    ): Response<Unit>
+    ): Response<UserResponseDTO>
+
 
     // actualiza un campo de un usuario
     @PATCH("/users/{id}")
