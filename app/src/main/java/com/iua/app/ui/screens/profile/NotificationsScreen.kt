@@ -4,10 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -64,26 +62,26 @@ fun NotificationsScreen(navController: NavHostController) {
                 stringResource(R.string.notifications_reminders_title),
                 stringResource(R.string.notifications_reminders_subtitle)
             )
-            NotificationToggleItem(
-                stringResource(R.string.notifications_events_nearby_title),
-                stringResource(R.string.notifications_events_nearby_subtitle)
-            )
-            NotificationToggleItem(
-                stringResource(R.string.notifications_possible_events_title),
-                stringResource(R.string.notifications_possible_events_subtitle)
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = stringResource(R.string.notifications_email_title),
-                color = MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(vertical = 16.dp)
-            )
-            NotificationToggleItem(
-                stringResource(R.string.notifications_login_title),
-                stringResource(R.string.notifications_login_subtitle)
-            )
-            NotificationToggleItem(stringResource(R.string.notifications_promotional_title), stringResource(R.string.notifications_promotional_subtitle))
+//            NotificationToggleItem(
+//                stringResource(R.string.notifications_events_nearby_title),
+//                stringResource(R.string.notifications_events_nearby_subtitle)
+//            )
+//            NotificationToggleItem(
+//                stringResource(R.string.notifications_possible_events_title),
+//                stringResource(R.string.notifications_possible_events_subtitle)
+//            )
+//            Spacer(modifier = Modifier.height(32.dp))
+//            Text(
+//                text = stringResource(R.string.notifications_email_title),
+//                color = MaterialTheme.colorScheme.onBackground,
+//                style = MaterialTheme.typography.titleLarge,
+//                modifier = Modifier.padding(vertical = 16.dp)
+//            )
+//            NotificationToggleItem(
+//                stringResource(R.string.notifications_login_title),
+//                stringResource(R.string.notifications_login_subtitle)
+//            )
+//            NotificationToggleItem(stringResource(R.string.notifications_promotional_title), stringResource(R.string.notifications_promotional_subtitle))
         }
     }
 }
